@@ -6,16 +6,15 @@ import { ExternalLink, Github, FolderOpen } from "lucide-react";
 
 // =============================================================================
 // [PROJECTS_PLACEHOLDER]
-// Add your projects to this array. Each project should follow this shape:
-//
+// Add your projects here. Shape:
 // {
-//   title: "Project Name",
-//   description: "Short description of what the project does.",
-//   image: "/projects/project-image.jpg", // Place image in /public/projects/
-//   tags: ["WordPress", "WooCommerce", "Custom Theme"],
-//   liveUrl: "https://your-project.com",
-//   githubUrl: "https://github.com/your-repo", // optional
-//   featured: true,
+//   title: string,
+//   description: string,
+//   image: string,        // e.g. "/projects/my-project.jpg"
+//   tags: string[],
+//   liveUrl: string,
+//   githubUrl?: string,
+//   featured?: boolean,
 // }
 // =============================================================================
 
@@ -30,7 +29,7 @@ type Project = {
 };
 
 const projects: Project[] = [
-  // [PROJECTS_PLACEHOLDER] — Replace these examples with your real projects
+  // [PROJECTS_PLACEHOLDER] — Replace these with your real projects
   {
     title: "Example: eCommerce Store",
     description:
@@ -57,7 +56,6 @@ const projects: Project[] = [
     image: "",
     tags: ["React", "Node.js", "REST API"],
     liveUrl: "#",
-    githubUrl: "",
   },
 ];
 
@@ -71,7 +69,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
       initial={{ opacity: 0, y: 40 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.6, delay: index * 0.1 }}
-      className={`group relative flex flex-col rounded-2xl bg-black/[0.96] overflow-hidden border border-neutral-800 hover:border-neutral-600 hover:-translate-y-1 hover:shadow-2xl hover:shadow-black/40 transition-all duration-300 ${
+      className={`group relative flex flex-col rounded-2xl bg-black/70 overflow-hidden border border-neutral-800 hover:border-neutral-600 hover:-translate-y-1 hover:shadow-2xl hover:shadow-black/40 transition-all duration-300 backdrop-blur-sm ${
         project.featured ? "ring-1 ring-white/10" : ""
       }`}
     >
@@ -81,8 +79,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         </div>
       )}
 
-      {/* Image / Placeholder */}
-      <div className="relative w-full h-52 bg-neutral-900 overflow-hidden">
+      <div className="relative w-full h-52 bg-neutral-950 overflow-hidden">
         {project.image ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
@@ -93,14 +90,10 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         ) : (
           <div className="w-full h-full flex flex-col items-center justify-center gap-3 text-neutral-700">
             <FolderOpen className="w-10 h-10" />
-            <span className="text-sm font-medium">
-              {/* [PROJECTS_PLACEHOLDER] Add project screenshot */}
-              Add screenshot
-            </span>
+            <span className="text-sm font-medium">Add screenshot</span>
           </div>
         )}
 
-        {/* Hover overlay */}
         <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
           {project.liveUrl && project.liveUrl !== "#" && (
             <a
@@ -127,7 +120,6 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         </div>
       </div>
 
-      {/* Body */}
       <div className="flex flex-col flex-1 p-6">
         <h3 className="text-neutral-100 font-bold text-lg mb-2">{project.title}</h3>
         <p className="text-neutral-500 text-sm leading-relaxed mb-4 flex-1">{project.description}</p>
@@ -136,7 +128,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           {project.tags.map((tag) => (
             <span
               key={tag}
-              className="px-2.5 py-1 text-xs font-semibold rounded-md bg-neutral-900 text-neutral-400 border border-neutral-800"
+              className="px-2.5 py-1 text-xs font-semibold rounded-md bg-neutral-900/80 text-neutral-400 border border-neutral-800"
             >
               {tag}
             </span>
@@ -177,11 +169,10 @@ export default function Projects() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="projects" className="section-padding relative bg-black" ref={ref}>
+    <section id="projects" className="section-padding relative" ref={ref}>
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
 
       <div className="max-w-7xl mx-auto">
-        {/* Header */}
         <div className="text-center mb-16">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -213,11 +204,7 @@ export default function Projects() {
           </motion.p>
         </div>
 
-        {/*
-         * [PROJECTS_PLACEHOLDER]
-         * Grid renders cards from the `projects` array above.
-         * Add your real projects there — screenshots go in /public/projects/
-         */}
+        {/* [PROJECTS_PLACEHOLDER] — Add real projects to the array above */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {projects.map((project, i) => (
             <ProjectCard key={project.title + i} project={project} index={i} />
@@ -230,9 +217,7 @@ export default function Projects() {
           transition={{ duration: 0.6, delay: 0.4 }}
           className="mt-12 text-center"
         >
-          <p className="text-neutral-600 text-sm mb-4">
-            Want to see more or discuss a similar project?
-          </p>
+          <p className="text-neutral-600 text-sm mb-4">Want to see more or discuss a similar project?</p>
           <button
             onClick={() =>
               document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" })

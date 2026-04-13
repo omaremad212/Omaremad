@@ -16,7 +16,7 @@ export default function Hero() {
   };
 
   return (
-    <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black px-4 sm:px-6 lg:px-8 pt-16">
+    <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden px-4 sm:px-6 lg:px-8 pt-16">
       <Card className="w-full max-w-7xl min-h-[560px] md:min-h-[620px] bg-black/[0.96] relative overflow-hidden border-neutral-800/50">
         <Spotlight
           className="-top-40 left-0 md:left-60 md:-top-20"

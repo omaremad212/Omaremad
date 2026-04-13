@@ -5,7 +5,7 @@ import { motion, useInView } from "framer-motion";
 import { Send, Mail, MessageCircle, CheckCircle, Loader2, Clock } from "lucide-react";
 
 type FormState = { name: string; email: string; message: string };
-type FormStatus = "idle" | "loading" | "success" | "error";
+type FormStatus = "idle" | "loading" | "success";
 
 export default function Contact() {
   const ref = useRef(null);
@@ -42,21 +42,17 @@ export default function Contact() {
   };
 
   const inputClass = (field: keyof FormState) =>
-    `px-4 py-3 bg-neutral-900/80 border rounded-xl text-neutral-100 placeholder-neutral-600 text-sm focus:outline-none focus:ring-1 focus:ring-neutral-500 transition-all ${
+    `px-4 py-3 bg-black/60 border rounded-xl text-neutral-100 placeholder-neutral-600 text-sm focus:outline-none focus:ring-1 focus:ring-neutral-500 transition-all backdrop-blur-sm ${
       errors[field]
         ? "border-red-500/50"
         : "border-neutral-800 hover:border-neutral-700 focus:border-neutral-600"
     }`;
 
   return (
-    <section id="contact" className="section-padding relative bg-black" ref={ref}>
+    <section id="contact" className="section-padding relative" ref={ref}>
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
 
-      {/* Glow */}
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-80 h-80 bg-white/[0.02] rounded-full blur-3xl pointer-events-none" />
-
       <div className="max-w-6xl mx-auto">
-        {/* Header */}
         <div className="text-center mb-14">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -89,15 +85,14 @@ export default function Contact() {
         </div>
 
         <div className="grid lg:grid-cols-5 gap-10 items-start">
-          {/* Left — contact info */}
+          {/* Left */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
             className="lg:col-span-2 flex flex-col gap-4"
           >
-            {/* Availability */}
-            <div className="p-5 rounded-2xl bg-neutral-950 border border-neutral-800">
+            <div className="p-5 rounded-2xl bg-black/60 border border-neutral-800 backdrop-blur-sm">
               <div className="flex items-center gap-3 mb-2">
                 <div className="w-2.5 h-2.5 rounded-full bg-green-400 animate-pulse" />
                 <span className="text-neutral-200 font-semibold text-sm">Available for Work</span>
@@ -105,8 +100,7 @@ export default function Contact() {
               <p className="text-neutral-500 text-sm">Currently accepting new projects.</p>
             </div>
 
-            {/* Response time */}
-            <div className="flex items-start gap-4 p-5 rounded-2xl bg-neutral-950 border border-neutral-800">
+            <div className="flex items-start gap-4 p-5 rounded-2xl bg-black/60 border border-neutral-800 backdrop-blur-sm">
               <div className="w-10 h-10 rounded-xl bg-white/[0.04] border border-white/[0.07] flex items-center justify-center flex-shrink-0">
                 <Clock className="w-5 h-5 text-neutral-400" />
               </div>
@@ -116,10 +110,9 @@ export default function Contact() {
               </div>
             </div>
 
-            {/* Email */}
             <a
               href="mailto:hello@omaremad.dev"
-              className="flex items-start gap-4 p-5 rounded-2xl bg-neutral-950 border border-neutral-800 hover:border-neutral-700 group transition-all duration-300"
+              className="flex items-start gap-4 p-5 rounded-2xl bg-black/60 border border-neutral-800 hover:border-neutral-700 group transition-all duration-300 backdrop-blur-sm"
             >
               <div className="w-10 h-10 rounded-xl bg-white/[0.04] border border-white/[0.07] flex items-center justify-center flex-shrink-0 group-hover:bg-white/[0.07] transition-colors">
                 <Mail className="w-5 h-5 text-neutral-400" />
@@ -130,22 +123,21 @@ export default function Contact() {
               </div>
             </a>
 
-            {/* WhatsApp */}
             <a
-              href="https://wa.me/201000000000"
+              href="https://wa.me/201143811263"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-4 p-5 rounded-2xl bg-neutral-950 border border-neutral-800 hover:border-neutral-700 group transition-all duration-300"
+              className="flex items-center gap-4 p-5 rounded-2xl bg-black/60 border border-neutral-800 hover:border-green-900/50 group transition-all duration-300 backdrop-blur-sm"
             >
-              <div className="w-10 h-10 rounded-xl bg-white/[0.04] border border-white/[0.07] flex items-center justify-center flex-shrink-0 group-hover:bg-white/[0.07] transition-colors">
-                <MessageCircle className="w-5 h-5 text-neutral-400" />
+              <div className="w-10 h-10 rounded-xl bg-white/[0.04] border border-white/[0.07] flex items-center justify-center flex-shrink-0 group-hover:bg-green-900/20 transition-colors">
+                <MessageCircle className="w-5 h-5 text-neutral-400 group-hover:text-green-400 transition-colors" />
               </div>
               <div>
                 <p className="text-neutral-200 font-semibold text-sm">WhatsApp</p>
-                <p className="text-neutral-500 text-sm mt-0.5">Message me directly</p>
+                <p className="text-neutral-500 text-sm mt-0.5">+20 114 381 1263</p>
               </div>
               <div className="ml-auto">
-                <span className="px-2.5 py-1 text-xs font-bold rounded-full bg-neutral-800 text-neutral-400 border border-neutral-700">Fast</span>
+                <span className="px-2.5 py-1 text-xs font-bold rounded-full bg-green-900/30 text-green-400 border border-green-900/40">Fast</span>
               </div>
             </a>
           </motion.div>
@@ -157,7 +149,7 @@ export default function Contact() {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="lg:col-span-3"
           >
-            <div className="p-8 rounded-2xl bg-black/[0.96] border border-neutral-800">
+            <div className="p-8 rounded-2xl bg-black/70 border border-neutral-800 backdrop-blur-sm">
               {status === "success" ? (
                 <motion.div
                   initial={{ opacity: 0, scale: 0.9 }}
@@ -204,7 +196,7 @@ export default function Contact() {
                   <button
                     type="submit"
                     disabled={status === "loading"}
-                    className="w-full flex items-center justify-center gap-2.5 px-6 py-4 bg-white hover:bg-neutral-100 disabled:bg-neutral-800 disabled:text-neutral-500 text-black font-bold text-sm rounded-xl transition-all duration-300 hover:shadow-xl hover:shadow-white/10 hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:hover:translate-y-0"
+                    className="w-full flex items-center justify-center gap-2.5 px-6 py-4 bg-white hover:bg-neutral-100 disabled:bg-neutral-800 disabled:text-neutral-500 text-black font-bold text-sm rounded-xl transition-all duration-300 hover:shadow-xl hover:shadow-white/10 hover:-translate-y-0.5 disabled:cursor-not-allowed"
                   >
                     {status === "loading" ? (
                       <><Loader2 className="w-5 h-5 animate-spin" />Sending...</>
@@ -214,7 +206,7 @@ export default function Contact() {
                   </button>
 
                   <p className="text-center text-xs text-neutral-600">
-                    No spam, no subscriptions. Just a real conversation.
+                    No spam. Just a real conversation.
                   </p>
                 </form>
               )}

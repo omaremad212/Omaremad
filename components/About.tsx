@@ -37,11 +37,10 @@ export default function About() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="about" className="section-padding relative bg-black" ref={ref}>
+    <section id="about" className="section-padding relative" ref={ref}>
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
 
       <div className="max-w-7xl mx-auto">
-        {/* Label */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -55,7 +54,7 @@ export default function About() {
         </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-16 items-center">
-          {/* Left — text */}
+          {/* Left */}
           <div>
             <motion.h2
               initial={{ opacity: 0, y: 30 }}
@@ -96,7 +95,6 @@ export default function About() {
               sharp business eye to every project.
             </motion.p>
 
-            {/* Tools */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={isInView ? { opacity: 1 } : {}}
@@ -109,7 +107,7 @@ export default function About() {
                 {tools.map((tool) => (
                   <span
                     key={tool}
-                    className="px-3 py-1.5 text-xs font-semibold rounded-lg bg-neutral-900 text-neutral-400 border border-neutral-800 hover:border-neutral-600 hover:text-neutral-200 transition-colors duration-200"
+                    className="px-3 py-1.5 text-xs font-semibold rounded-lg bg-black/60 text-neutral-400 border border-neutral-800 hover:border-neutral-600 hover:text-neutral-200 transition-colors duration-200 backdrop-blur-sm"
                   >
                     {tool}
                   </span>
@@ -131,7 +129,7 @@ export default function About() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: 0.2 + i * 0.1 }}
-                className="group p-6 rounded-2xl bg-neutral-900/60 border border-neutral-800 hover:border-neutral-700 hover:bg-neutral-900 transition-all duration-300"
+                className="group p-6 rounded-2xl bg-black/60 border border-neutral-800 hover:border-neutral-700 hover:bg-black/80 transition-all duration-300 backdrop-blur-sm"
               >
                 <div className="w-11 h-11 rounded-xl bg-white/[0.05] border border-white/10 flex items-center justify-center mb-4 group-hover:bg-white/[0.08] transition-colors duration-300">
                   <item.icon className="w-5 h-5 text-neutral-300" />

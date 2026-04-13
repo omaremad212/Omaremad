@@ -3,18 +3,22 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Code2 } from "lucide-react";
+import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 
 const navLinks = [
   { label: "About", href: "#about" },
   { label: "Services", href: "#services" },
   { label: "Projects", href: "#projects" },
   { label: "Why Me", href: "#why-me" },
-  { label: "Contact", href: "#contact" },
 ];
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const pathname = usePathname();
+  const router = useRouter();
+  const isHome = pathname === "/";
 
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 20);
@@ -22,9 +26,13 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const handleLinkClick = (href: string) => {
+  const handleNavClick = (href: string) => {
     setMobileOpen(false);
-    document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
+    if (isHome) {
+      document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
+    } else {
+      router.push(`/${href}`);
+    }
   };
 
   return (
@@ -34,54 +42,45 @@ export default function Navbar() {
       transition={{ duration: 0.6, ease: "easeOut" }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? "bg-black/90 backdrop-blur-xl border-b border-white/[0.06] shadow-lg shadow-black/40"
+          ? "bg-black/80 backdrop-blur-xl border-b border-white/[0.06] shadow-lg shadow-black/40"
           : "bg-transparent"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <a
-            href="#"
-            className="flex items-center gap-2 group"
-            onClick={(e) => {
-              e.preventDefault();
-              window.scrollTo({ top: 0, behavior: "smooth" });
-            }}
-          >
+          <Link href="/" className="flex items-center gap-2 group">
             <div className="w-8 h-8 rounded-lg bg-white/[0.08] border border-white/10 flex items-center justify-center group-hover:bg-white/15 transition-colors duration-200">
               <Code2 className="w-4 h-4 text-white" />
             </div>
             <span className="font-bold text-lg text-white tracking-tight">
               Omar<span className="text-neutral-500">.</span>dev
             </span>
-          </a>
+          </Link>
 
           {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-1">
             {navLinks.map((link) => (
               <a
                 key={link.href}
-                href={link.href}
+                href={isHome ? link.href : `/${link.href}`}
                 onClick={(e) => {
-                  e.preventDefault();
-                  handleLinkClick(link.href);
+                  if (isHome) {
+                    e.preventDefault();
+                    handleNavClick(link.href);
+                  }
                 }}
                 className="px-4 py-2 text-sm font-medium text-neutral-400 hover:text-white rounded-lg hover:bg-white/[0.05] transition-all duration-200"
               >
                 {link.label}
               </a>
             ))}
-            <a
-              href="#contact"
-              onClick={(e) => {
-                e.preventDefault();
-                handleLinkClick("#contact");
-              }}
+            <Link
+              href="/contact"
               className="ml-3 px-5 py-2 text-sm font-semibold bg-white hover:bg-neutral-100 text-black rounded-lg transition-all duration-200 hover:shadow-lg hover:shadow-white/10 hover:-translate-y-0.5"
             >
               Hire Me
-            </a>
+            </Link>
           </nav>
 
           {/* Mobile hamburger */}
@@ -109,26 +108,26 @@ export default function Navbar() {
               {navLinks.map((link) => (
                 <a
                   key={link.href}
-                  href={link.href}
+                  href={isHome ? link.href : `/${link.href}`}
                   onClick={(e) => {
-                    e.preventDefault();
-                    handleLinkClick(link.href);
+                    if (isHome) {
+                      e.preventDefault();
+                      handleNavClick(link.href);
+                    }
+                    setMobileOpen(false);
                   }}
                   className="px-4 py-3 text-sm font-medium text-neutral-400 hover:text-white rounded-lg hover:bg-white/[0.05] transition-all"
                 >
                   {link.label}
                 </a>
               ))}
-              <a
-                href="#contact"
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleLinkClick("#contact");
-                }}
+              <Link
+                href="/contact"
+                onClick={() => setMobileOpen(false)}
                 className="mt-2 px-4 py-3 text-sm font-semibold bg-white hover:bg-neutral-100 text-black rounded-lg text-center transition-all"
               >
                 Hire Me
-              </a>
+              </Link>
             </nav>
           </motion.div>
         )}
