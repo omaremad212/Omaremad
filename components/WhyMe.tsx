@@ -44,7 +44,7 @@ export default function WhyMe() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="why-me" className="section-padding relative" ref={ref}>
+    <section id="why-me" className="section-padding relative bg-[#080808]" ref={ref}>
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
 
       <div className="max-w-7xl mx-auto relative">
@@ -88,7 +88,7 @@ export default function WhyMe() {
               initial={{ opacity: 0, y: 40 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: 0.1 + i * 0.1 }}
-              className="group p-6 rounded-2xl bg-black/70 border border-neutral-800 hover:border-neutral-700 hover:-translate-y-1 hover:shadow-xl hover:shadow-black/30 transition-all duration-300 flex flex-col backdrop-blur-sm"
+              className="group p-6 rounded-2xl bg-neutral-950 border border-neutral-800 hover:border-neutral-700 hover:-translate-y-1 hover:shadow-xl hover:shadow-black/30 transition-all duration-300 flex flex-col"
             >
               <div className="w-11 h-11 rounded-xl bg-white/[0.04] border border-white/[0.08] flex items-center justify-center mb-4 group-hover:bg-white/[0.07] transition-colors duration-300">
                 <point.icon className="w-5 h-5 text-neutral-300" />

@@ -7,18 +7,18 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 
 const navLinks = [
-  { label: "About", href: "#about" },
+  { label: "About",    href: "#about"    },
   { label: "Services", href: "#services" },
   { label: "Projects", href: "#projects" },
-  { label: "Why Me", href: "#why-me" },
+  { label: "Why Me",   href: "#why-me"   },
 ];
 
 export default function Navbar() {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
+  const [isScrolled, setIsScrolled]   = useState(false);
+  const [mobileOpen, setMobileOpen]   = useState(false);
   const pathname = usePathname();
-  const router = useRouter();
-  const isHome = pathname === "/";
+  const router   = useRouter();
+  const isHome   = pathname === "/";
 
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 20);
@@ -41,15 +41,14 @@ export default function Navbar() {
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? "bg-black/80 backdrop-blur-xl border-b border-white/[0.06] shadow-lg shadow-black/40"
-          : "bg-transparent"
+        isScrolled ? "bg-black/70 backdrop-blur-xl border-b border-white/[0.05]" : "bg-transparent"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 group">
+        <div className="flex items-center justify-between h-16 gap-4">
+
+          {/* ── Logo (left) ─────────────────────────────────────── */}
+          <Link href="/" className="flex items-center gap-2 group flex-shrink-0">
             <div className="w-8 h-8 rounded-lg bg-white/[0.08] border border-white/10 flex items-center justify-center group-hover:bg-white/15 transition-colors duration-200">
               <Code2 className="w-4 h-4 text-white" />
             </div>
@@ -58,35 +57,34 @@ export default function Navbar() {
             </span>
           </Link>
 
-          {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-1">
+          {/* ── Nav links – glassmorphism pill (center) ──────────── */}
+          <nav className="hidden md:flex items-center bg-white/[0.06] backdrop-blur-md border border-white/[0.09] rounded-full px-1.5 py-1.5 gap-0.5">
             {navLinks.map((link) => (
               <a
                 key={link.href}
                 href={isHome ? link.href : `/${link.href}`}
                 onClick={(e) => {
-                  if (isHome) {
-                    e.preventDefault();
-                    handleNavClick(link.href);
-                  }
+                  if (isHome) { e.preventDefault(); handleNavClick(link.href); }
                 }}
-                className="px-4 py-2 text-sm font-medium text-neutral-400 hover:text-white rounded-lg hover:bg-white/[0.05] transition-all duration-200"
+                className="px-4 py-1.5 text-sm font-medium text-neutral-400 hover:text-white rounded-full hover:bg-white/[0.08] transition-all duration-200 whitespace-nowrap"
               >
                 {link.label}
               </a>
             ))}
-            <Link
-              href="/contact"
-              className="ml-3 px-5 py-2 text-sm font-semibold bg-white hover:bg-neutral-100 text-black rounded-lg transition-all duration-200 hover:shadow-lg hover:shadow-white/10 hover:-translate-y-0.5"
-            >
-              Hire Me
-            </Link>
           </nav>
 
-          {/* Mobile hamburger */}
+          {/* ── Hire Me (right) ──────────────────────────────────── */}
+          <Link
+            href="/contact"
+            className="hidden md:inline-flex flex-shrink-0 px-5 py-2 text-sm font-semibold bg-white hover:bg-neutral-100 text-black rounded-full transition-all duration-200 hover:shadow-lg hover:shadow-white/10 hover:-translate-y-0.5"
+          >
+            Hire Me
+          </Link>
+
+          {/* ── Mobile hamburger ─────────────────────────────────── */}
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="md:hidden p-2 rounded-lg text-neutral-400 hover:text-white hover:bg-white/[0.07] transition-all"
+            className="md:hidden p-2 rounded-lg text-neutral-400 hover:text-white hover:bg-white/[0.07] transition-all flex-shrink-0"
             aria-label="Toggle menu"
           >
             {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -94,7 +92,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* ── Mobile drawer ──────────────────────────────────────── */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
@@ -110,13 +108,10 @@ export default function Navbar() {
                   key={link.href}
                   href={isHome ? link.href : `/${link.href}`}
                   onClick={(e) => {
-                    if (isHome) {
-                      e.preventDefault();
-                      handleNavClick(link.href);
-                    }
-                    setMobileOpen(false);
+                    if (isHome) { e.preventDefault(); }
+                    handleNavClick(link.href);
                   }}
-                  className="px-4 py-3 text-sm font-medium text-neutral-400 hover:text-white rounded-lg hover:bg-white/[0.05] transition-all"
+                  className="px-4 py-3 text-sm font-medium text-neutral-400 hover:text-white rounded-xl hover:bg-white/[0.05] transition-all"
                 >
                   {link.label}
                 </a>
@@ -124,7 +119,7 @@ export default function Navbar() {
               <Link
                 href="/contact"
                 onClick={() => setMobileOpen(false)}
-                className="mt-2 px-4 py-3 text-sm font-semibold bg-white hover:bg-neutral-100 text-black rounded-lg text-center transition-all"
+                className="mt-2 px-4 py-3 text-sm font-semibold bg-white hover:bg-neutral-100 text-black rounded-xl text-center transition-all"
               >
                 Hire Me
               </Link>

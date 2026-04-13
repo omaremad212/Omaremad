@@ -51,8 +51,8 @@ const contactMethods = [
   {
     icon: Mail,
     label: "Email",
-    value: "hello@omaremad.dev",
-    href: "mailto:hello@omaremad.dev",
+    value: "oemad8637@gmail.com",
+    href: "mailto:oemad8637@gmail.com",
     cta: "Send email",
     accent: "hover:border-neutral-700",
     badge: null,
@@ -98,7 +98,7 @@ export default function ContactPage() {
   };
 
   const inputClass = (field: keyof FormState) =>
-    `px-4 py-3 bg-black/60 border rounded-xl text-neutral-100 placeholder-neutral-600 text-sm focus:outline-none focus:ring-1 focus:ring-neutral-500 transition-all w-full backdrop-blur-sm ${
+    `px-4 py-3 bg-neutral-950 border rounded-xl text-neutral-100 placeholder-neutral-600 text-sm focus:outline-none focus:ring-1 focus:ring-neutral-500 transition-all w-full ${
       errors[field]
         ? "border-red-500/50"
         : "border-neutral-800 hover:border-neutral-700 focus:border-neutral-600"
@@ -149,7 +149,7 @@ export default function ContactPage() {
             className="lg:col-span-2 flex flex-col gap-5"
           >
             {/* Availability */}
-            <div className="p-5 rounded-2xl bg-black/60 border border-neutral-800 backdrop-blur-sm">
+            <div className="p-5 rounded-2xl bg-neutral-950 border border-neutral-800">
               <div className="flex items-center gap-3 mb-2">
                 <div className="w-2.5 h-2.5 rounded-full bg-green-400 animate-pulse" />
                 <span className="text-neutral-100 font-semibold">Available for Work</span>
@@ -160,7 +160,7 @@ export default function ContactPage() {
             </div>
 
             {/* Response time */}
-            <div className="flex items-start gap-4 p-5 rounded-2xl bg-black/60 border border-neutral-800 backdrop-blur-sm">
+            <div className="flex items-start gap-4 p-5 rounded-2xl bg-neutral-950 border border-neutral-800">
               <div className="w-10 h-10 rounded-xl bg-white/[0.04] border border-white/[0.07] flex items-center justify-center flex-shrink-0">
                 <Clock className="w-5 h-5 text-neutral-400" />
               </div>
@@ -179,7 +179,7 @@ export default function ContactPage() {
                 href={method.href}
                 target={method.href.startsWith("http") ? "_blank" : undefined}
                 rel={method.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                className={`flex items-center gap-4 p-5 rounded-2xl bg-black/60 border border-neutral-800 ${method.accent} group transition-all duration-300 backdrop-blur-sm`}
+                className={`flex items-center gap-4 p-5 rounded-2xl bg-neutral-950 border border-neutral-800 ${method.accent} group transition-all duration-300`}
               >
                 <div className="w-10 h-10 rounded-xl bg-white/[0.04] border border-white/[0.07] flex items-center justify-center flex-shrink-0 group-hover:bg-white/[0.08] transition-colors">
                   <method.icon className={`w-5 h-5 text-neutral-400 transition-colors ${method.accent.includes("green") ? "group-hover:text-green-400" : ""}`} />
@@ -200,7 +200,7 @@ export default function ContactPage() {
             ))}
 
             {/* Social links */}
-            <div className="p-5 rounded-2xl bg-black/60 border border-neutral-800 backdrop-blur-sm">
+            <div className="p-5 rounded-2xl bg-neutral-950 border border-neutral-800">
               <p className="text-xs uppercase tracking-widest text-neutral-600 font-semibold mb-4">
                 Find me on
               </p>
@@ -229,7 +229,7 @@ export default function ContactPage() {
             transition={{ duration: 0.6, delay: 0.25 }}
             className="lg:col-span-3"
           >
-            <div className="p-8 rounded-2xl bg-black/70 border border-neutral-800 backdrop-blur-sm">
+            <div className="p-8 rounded-2xl bg-neutral-950 border border-neutral-800">
               {status === "success" ? (
                 <motion.div
                   initial={{ opacity: 0, scale: 0.9 }}

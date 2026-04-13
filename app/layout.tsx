@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { Background } from "@/components/Background";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://omaremad.dev"),
@@ -76,10 +75,7 @@ export default function RootLayout({
         />
         <link rel="icon" href="/favicon.ico" />
       </head>
-      <body className="bg-black text-neutral-200 antialiased">
-          <Background />
-          {children}
-        </body>
+      <body className="bg-black text-neutral-200 antialiased">{children}</body>
     </html>
   );
 }

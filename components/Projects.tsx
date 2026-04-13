@@ -69,12 +69,12 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
       initial={{ opacity: 0, y: 40 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.6, delay: index * 0.1 }}
-      className={`group relative flex flex-col rounded-2xl bg-black/70 overflow-hidden border border-neutral-800 hover:border-neutral-600 hover:-translate-y-1 hover:shadow-2xl hover:shadow-black/40 transition-all duration-300 backdrop-blur-sm ${
+      className={`group relative flex flex-col rounded-2xl bg-neutral-950 overflow-hidden border border-neutral-800 hover:border-neutral-600 hover:-translate-y-1 hover:shadow-2xl hover:shadow-black/40 transition-all duration-300 ${
         project.featured ? "ring-1 ring-white/10" : ""
       }`}
     >
       {project.featured && (
-        <div className="absolute top-3 left-3 z-10 px-2.5 py-1 text-xs font-bold rounded-full bg-neutral-800/80 text-neutral-300 border border-neutral-700 backdrop-blur-sm">
+        <div className="absolute top-3 left-3 z-10 px-2.5 py-1 text-xs font-bold rounded-full bg-neutral-800/80 text-neutral-300 border border-neutral-700">
           Featured
         </div>
       )}
@@ -169,7 +169,7 @@ export default function Projects() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="projects" className="section-padding relative" ref={ref}>
+    <section id="projects" className="section-padding relative bg-black" ref={ref}>
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
 
       <div className="max-w-7xl mx-auto">
