@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useId, useRef, useEffect, CSSProperties } from 'react';
+import React, { useId, CSSProperties } from 'react';
 
 interface AnimationConfig {
   preview?: boolean;
@@ -21,8 +21,6 @@ interface ShadowOverlayProps {
   style?: CSSProperties;
   className?: string;
   renderScale?: number;
-  /** Max animation frames-per-second. Default 5 — keeps CPU near zero. */
-  fps?: number;
 }
 
 function mapRange(
@@ -47,11 +45,9 @@ export function Component({
   style,
   className,
   renderScale = 1,
-  fps = 5,
 }: ShadowOverlayProps) {
   const id = useInstanceId();
   const animationEnabled = animation && animation.scale > 0;
-  const feColorMatrixRef = useRef<SVGFEColorMatrixElement>(null);
 
   const rs = Math.min(1, Math.max(0.05, renderScale));
 
@@ -62,31 +58,9 @@ export function Component({
   const rawBfY = animationEnabled ? mapRange(animation.scale, 0, 100, 0.004, 0.002) : 0.004;
   const baseFreq = `${rawBfX / rs},${rawBfY / rs}`;
 
-  // Degrees per frame at the chosen fps
   const animationDuration = animation ? mapRange(animation.speed, 1, 100, 1000, 50) : 1;
-  const degreesPerSecond = 360 / (animationDuration / 25);
-  const degreesPerFrame = degreesPerSecond / fps;
-
-  // Throttled RAF loop — only paints at `fps` frames per second
-  useEffect(() => {
-    if (!animationEnabled || !feColorMatrixRef.current) return;
-
-    let hue = 0;
-    let lastTime = 0;
-    let rafId: number;
-    const interval = 1000 / fps;
-
-    const tick = (time: number) => {
-      rafId = requestAnimationFrame(tick);
-      if (time - lastTime < interval) return;   // skip frames
-      lastTime = time;
-      hue = (hue + degreesPerFrame) % 360;
-      feColorMatrixRef.current?.setAttribute('values', String(hue));
-    };
-
-    rafId = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(rafId);
-  }, [animationEnabled, fps, degreesPerFrame]);
+  // Slow, smooth SMIL animation — browser-native, zero JS main-thread cost
+  const dur = `${(animationDuration / 25).toFixed(2)}s`;
 
   const blurPx = (4 * rs).toFixed(2);
   const cssScale = (1 / rs) * 1.02;
@@ -138,13 +112,9 @@ export function Component({
                     seed="0"
                     type="turbulence"
                   />
-                  <feColorMatrix
-                    ref={feColorMatrixRef}
-                    in="undulation"
-                    type="hueRotate"
-                    values="0"
-                    result="rotated"
-                  />
+                  <feColorMatrix in="undulation" type="hueRotate" values="0" result="rotated">
+                    <animate attributeName="values" from="0" to="360" dur={dur} repeatCount="indefinite" />
+                  </feColorMatrix>
                   <feColorMatrix
                     in="rotated"
                     result="circulation"
