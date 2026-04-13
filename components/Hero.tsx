@@ -14,7 +14,7 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative w-full min-h-screen overflow-hidden bg-black"
+      className="relative w-full min-h-screen overflow-hidden"
     >
       {/* Spotlight */}
       <Spotlight

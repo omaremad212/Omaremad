@@ -1,20 +1,15 @@
 "use client";
 
-import dynamic from "next/dynamic";
-
-// Dynamically imported to avoid SSR issues with WebGL
-const MeshGradient = dynamic(
-  () => import("@paper-design/shaders-react").then((m) => m.MeshGradient),
-  { ssr: false }
-);
+import { Component } from "@/components/ui/etheral-shadow";
 
 export function Background() {
   return (
     <div className="fixed inset-0 -z-10 pointer-events-none" aria-hidden>
-      <MeshGradient
-        className="w-full h-full"
-        colors={["#000000", "#1a1a1a", "#333333", "#ffffff"]}
-        speed={1.0}
+      <Component
+        color="rgba(128, 128, 128, 1)"
+        animation={{ scale: 100, speed: 90 }}
+        noise={{ opacity: 1, scale: 1.2 }}
+        sizing="fill"
       />
     </div>
   );
