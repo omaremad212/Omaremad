@@ -125,7 +125,7 @@ export function Component({
                 <filter id={id} colorInterpolationFilters="sRGB">
                   <feTurbulence
                     result="undulation"
-                    numOctaves="2"
+                    numOctaves="1"
                     baseFrequency={baseFreq}
                     seed="0"
                     type="turbulence"
