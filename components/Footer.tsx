@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { Code2, Heart, Github, Linkedin, Twitter } from "lucide-react";
 
 const navLinks = [
@@ -23,36 +22,32 @@ export default function Footer() {
   };
 
   return (
-    <footer className="relative border-t border-slate-800/60 bg-[#0a1120]">
+    <footer className="relative border-t border-neutral-900 bg-black">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="flex flex-col md:flex-row items-center justify-between gap-8">
           {/* Brand */}
           <div className="flex flex-col items-center md:items-start gap-3">
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center">
-                <Code2 className="w-4 h-4 text-white" />
+              <div className="w-8 h-8 rounded-lg bg-white/[0.06] border border-white/[0.08] flex items-center justify-center">
+                <Code2 className="w-4 h-4 text-neutral-300" />
               </div>
-              <span className="font-bold text-white text-lg">
-                Omar<span className="text-blue-400">.</span>dev
+              <span className="font-bold text-neutral-200 text-lg tracking-tight">
+                Omar<span className="text-neutral-600">.</span>dev
               </span>
             </div>
-            <p className="text-slate-500 text-sm text-center md:text-left max-w-xs">
-              Building fast, smart websites powered by AI — that actually grow
-              your business.
+            <p className="text-neutral-600 text-sm text-center md:text-left max-w-xs">
+              Building fast, smart websites powered by AI — that actually grow your business.
             </p>
           </div>
 
-          {/* Nav links */}
+          {/* Nav */}
           <nav className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
             {navLinks.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleNav(link.href);
-                }}
-                className="text-sm text-slate-400 hover:text-white transition-colors duration-200"
+                onClick={(e) => { e.preventDefault(); handleNav(link.href); }}
+                className="text-sm text-neutral-600 hover:text-neutral-300 transition-colors duration-200"
               >
                 {link.label}
               </a>
@@ -68,7 +63,7 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={social.label}
-                className="w-9 h-9 rounded-lg bg-slate-800/80 border border-slate-700/60 flex items-center justify-center text-slate-400 hover:text-white hover:border-blue-500/40 hover:bg-slate-700 transition-all duration-200"
+                className="w-9 h-9 rounded-lg bg-neutral-900 border border-neutral-800 flex items-center justify-center text-neutral-500 hover:text-neutral-200 hover:border-neutral-700 transition-all duration-200"
               >
                 <social.icon className="w-4 h-4" />
               </a>
@@ -76,15 +71,11 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Bottom line */}
-        <div className="mt-10 pt-6 border-t border-slate-800/60 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-slate-600">
-          <p>
-            &copy; {new Date().getFullYear()} Omar Emad. All rights reserved.
-          </p>
+        {/* Bottom */}
+        <div className="mt-10 pt-6 border-t border-neutral-900 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-neutral-700">
+          <p>&copy; {new Date().getFullYear()} Omar Emad. All rights reserved.</p>
           <p className="flex items-center gap-1">
-            Built with{" "}
-            <Heart className="w-3 h-3 text-red-400 fill-red-400 mx-0.5" /> using
-            Next.js & Tailwind CSS
+            Built with <Heart className="w-3 h-3 text-neutral-500 fill-neutral-500 mx-0.5" /> using Next.js & Tailwind CSS
           </p>
         </div>
       </div>

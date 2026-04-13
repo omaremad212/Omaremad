@@ -75,7 +75,7 @@ export default function RootLayout({
         />
         <link rel="icon" href="/favicon.ico" />
       </head>
-      <body className="bg-[#0F172A] text-slate-200 antialiased">{children}</body>
+      <body className="bg-black text-neutral-200 antialiased">{children}</body>
     </html>
   );
 }
