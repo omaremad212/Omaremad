@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useId, CSSProperties } from 'react';
+import React, { useId, useRef, useEffect, CSSProperties } from 'react';
 
 interface AnimationConfig {
   preview?: boolean;
@@ -20,13 +20,9 @@ interface ShadowOverlayProps {
   noise?: NoiseConfig;
   style?: CSSProperties;
   className?: string;
-  /**
-   * Render the heavy SVG filter at a fraction of container size,
-   * then CSS-scale back up. Values like 0.25 = 16× fewer pixels to
-   * compute while producing an identical visual output (base-frequency
-   * and displacement are corrected for the scale factor).
-   */
   renderScale?: number;
+  /** Max animation frames-per-second. Default 5 — keeps CPU near zero. */
+  fps?: number;
 }
 
 function mapRange(
@@ -51,21 +47,14 @@ export function Component({
   style,
   className,
   renderScale = 1,
+  fps = 5,
 }: ShadowOverlayProps) {
   const id = useInstanceId();
   const animationEnabled = animation && animation.scale > 0;
+  const feColorMatrixRef = useRef<SVGFEColorMatrixElement>(null);
 
-  // Clamp renderScale to a sensible range
   const rs = Math.min(1, Math.max(0.05, renderScale));
 
-  // --- Visual-equivalent scaling math ---
-  // The inner container is (rs × 100)% of the parent.
-  // To keep the turbulence pattern looking the same size in screen space,
-  // we divide baseFrequency by rs (more cycles per inner-pixel = same
-  // cycles per screen-pixel after CSS upscale).
-  // To keep the displacement looking the same size in screen space,
-  // we multiply displacementScale by rs (smaller inner-pixel displacement
-  // becomes the same screen-pixel displacement after CSS upscale).
   const rawDisplacement = animation ? mapRange(animation.scale, 1, 100, 20, 100) : 0;
   const displacementScale = rawDisplacement * rs;
 
@@ -73,13 +62,33 @@ export function Component({
   const rawBfY = animationEnabled ? mapRange(animation.scale, 0, 100, 0.004, 0.002) : 0.004;
   const baseFreq = `${rawBfX / rs},${rawBfY / rs}`;
 
+  // Degrees per frame at the chosen fps
   const animationDuration = animation ? mapRange(animation.speed, 1, 100, 1000, 50) : 1;
-  const dur = `${(animationDuration / 25).toFixed(2)}s`;
+  const degreesPerSecond = 360 / (animationDuration / 25);
+  const degreesPerFrame = degreesPerSecond / fps;
 
-  // CSS blur also scales: 4px visual blur = 4*rs px on inner element
+  // Throttled RAF loop — only paints at `fps` frames per second
+  useEffect(() => {
+    if (!animationEnabled || !feColorMatrixRef.current) return;
+
+    let hue = 0;
+    let lastTime = 0;
+    let rafId: number;
+    const interval = 1000 / fps;
+
+    const tick = (time: number) => {
+      rafId = requestAnimationFrame(tick);
+      if (time - lastTime < interval) return;   // skip frames
+      lastTime = time;
+      hue = (hue + degreesPerFrame) % 360;
+      feColorMatrixRef.current?.setAttribute('values', String(hue));
+    };
+
+    rafId = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(rafId);
+  }, [animationEnabled, fps, degreesPerFrame]);
+
   const blurPx = (4 * rs).toFixed(2);
-
-  // CSS scale to fill parent; slight oversize (× 1.02) removes edge gaps
   const cssScale = (1 / rs) * 1.02;
 
   return (
@@ -94,7 +103,6 @@ export function Component({
         ...style,
       }}
     >
-      {/* ── Inner element rendered at (rs × 100)% then scaled up ── */}
       <div
         style={{
           position: 'absolute',
@@ -130,16 +138,13 @@ export function Component({
                     seed="0"
                     type="turbulence"
                   />
-                  {/* SMIL — native browser animation, zero JS per-frame cost */}
-                  <feColorMatrix in="undulation" type="hueRotate" values="0" result="rotated">
-                    <animate
-                      attributeName="values"
-                      from="0"
-                      to="360"
-                      dur={dur}
-                      repeatCount="indefinite"
-                    />
-                  </feColorMatrix>
+                  <feColorMatrix
+                    ref={feColorMatrixRef}
+                    in="undulation"
+                    type="hueRotate"
+                    values="0"
+                    result="rotated"
+                  />
                   <feColorMatrix
                     in="rotated"
                     result="circulation"
@@ -156,7 +161,6 @@ export function Component({
                     in="dist"
                     in2="undulation"
                     scale={displacementScale}
-                    result="output"
                   />
                 </filter>
               </defs>
@@ -178,7 +182,6 @@ export function Component({
         </div>
       </div>
 
-      {/* Noise overlay — cheap, stays at full resolution */}
       {noise && noise.opacity > 0 && (
         <div
           style={{
