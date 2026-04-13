@@ -16,7 +16,6 @@ export function Background() {
         noise={{ opacity: 1, scale: 1.2 }}
         sizing="fill"
         renderScale={0.1}
-        fps={5}
       />
     </div>
   );
