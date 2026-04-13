@@ -7,6 +7,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 
 const navLinks = [
+  { label: "Home",     href: "#"         },
   { label: "About",    href: "#about"    },
   { label: "Services", href: "#services" },
   { label: "Projects", href: "#projects" },
@@ -28,6 +29,11 @@ export default function Navbar() {
 
   const handleNavClick = (href: string) => {
     setMobileOpen(false);
+    if (href === "#") {
+      if (isHome) window.scrollTo({ top: 0, behavior: "smooth" });
+      else router.push("/");
+      return;
+    }
     if (isHome) {
       document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
     } else {
@@ -44,7 +50,7 @@ export default function Navbar() {
         isScrolled ? "bg-black/70 backdrop-blur-xl border-b border-white/[0.05]" : "bg-transparent"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 gap-4">
 
           {/* ── Logo (left) ─────────────────────────────────────── */}
