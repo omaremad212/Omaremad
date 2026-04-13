@@ -4,13 +4,17 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
+/* ─── Shadcn CSS variable tokens ─────────────────────────────────────────── */
 :root {
-  --bg-primary: #0F172A;
-  --bg-elevated: #1E293B;
-  --accent-blue: #3B82F6;
-  --accent-cyan: #06B6D4;
+  --background: 0 0% 2%;
+  --foreground: 0 0% 95%;
+  --card: 0 0% 3%;
+  --card-foreground: 0 0% 95%;
+  --muted: 0 0% 10%;
+  --muted-foreground: 0 0% 55%;
 }
 
+/* ─── Base reset ──────────────────────────────────────────────────────────── */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -22,68 +26,64 @@ html {
 }
 
 body {
-  background-color: #0F172A;
-  color: #E2E8F0;
+  background-color: #030712;
+  color: #e5e5e5;
   font-family: 'Inter', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 6px;
-}
-::-webkit-scrollbar-track {
-  background: #0F172A;
-}
-::-webkit-scrollbar-thumb {
-  background: #3B82F6;
-  border-radius: 3px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #60A5FA;
-}
+/* ─── Custom scrollbar ────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: #030712; }
+::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #555; }
 
-/* Selection */
+/* ─── Selection ───────────────────────────────────────────────────────────── */
 ::selection {
-  background: rgba(59, 130, 246, 0.3);
+  background: rgba(255, 255, 255, 0.15);
   color: #fff;
 }
 
-/* Gradient text utility */
+/* ─── Gradient text ───────────────────────────────────────────────────────── */
 .gradient-text {
-  background: linear-gradient(135deg, #3B82F6, #06B6D4);
+  background: linear-gradient(to bottom, #fafafa, #a3a3a3);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-/* Glow effect */
-.glow-blue {
-  box-shadow: 0 0 30px rgba(59, 130, 246, 0.3);
-}
-
-.glow-blue-sm {
-  box-shadow: 0 0 15px rgba(59, 130, 246, 0.2);
-}
-
-/* Card border gradient */
+/* ─── Card borders ────────────────────────────────────────────────────────── */
 .card-border {
-  border: 1px solid rgba(59, 130, 246, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.07);
   transition: border-color 0.3s ease;
 }
-
 .card-border:hover {
-  border-color: rgba(59, 130, 246, 0.4);
+  border-color: rgba(255, 255, 255, 0.15);
 }
 
-/* Section spacing */
+/* ─── Section spacing ─────────────────────────────────────────────────────── */
 .section-padding {
   padding: 6rem 1.5rem;
 }
-
 @media (min-width: 768px) {
-  .section-padding {
-    padding: 8rem 2rem;
-  }
+  .section-padding { padding: 8rem 2rem; }
+}
+
+/* ─── Spline loader spinner ───────────────────────────────────────────────── */
+.loader {
+  width: 36px;
+  height: 36px;
+  border: 3px solid rgba(255, 255, 255, 0.1);
+  border-top-color: rgba(255, 255, 255, 0.6);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ─── Glow helpers ────────────────────────────────────────────────────────── */
+.glow-white {
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.06);
 }
