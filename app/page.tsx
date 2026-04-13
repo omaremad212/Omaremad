@@ -1,6 +1,5 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
-import GeminiSection from "@/components/GeminiSection";
 import About from "@/components/About";
 import Services from "@/components/Services";
 import Projects from "@/components/Projects";
@@ -13,7 +12,6 @@ export default function Home() {
     <main className="relative overflow-x-hidden bg-black">
       <Navbar />
       <Hero />
-      <GeminiSection />
       <About />
       <Services />
       <Projects />
