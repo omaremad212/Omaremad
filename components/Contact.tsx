@@ -49,7 +49,7 @@ export default function Contact() {
     }`;
 
   return (
-    <section id="contact" className="section-padding relative bg-black" ref={ref}>
+    <section id="contact" className="section-padding relative" ref={ref}>
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
 
       <div className="max-w-6xl mx-auto">
