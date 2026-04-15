@@ -29,33 +29,64 @@ type Project = {
 };
 
 const projects: Project[] = [
-  // [PROJECTS_PLACEHOLDER] — Replace these with your real projects
   {
-    title: "Example: eCommerce Store",
+    title: "C-VTAK",
     description:
-      "A placeholder card. Replace this with your actual project details, description, and links.",
+      "A sleek, modern web presence built for a creative agency — showcasing their portfolio, services, and brand identity with a polished UI.",
     image: "",
-    tags: ["WordPress", "WooCommerce", "Custom Theme"],
-    liveUrl: "#",
-    githubUrl: "#",
+    tags: ["Next.js", "Tailwind CSS", "TypeScript"],
+    liveUrl: "https://c-vtak.vercel.app/",
     featured: true,
   },
   {
-    title: "Example: AI Chatbot Integration",
+    title: "Amaralaa",
     description:
-      "Another placeholder. Add a real screenshot, description, and live URL for your project.",
+      "Full-featured website for Amaralaa — clean layout, fast performance, and a user experience designed to convert visitors into customers.",
     image: "",
-    tags: ["Next.js", "OpenAI", "TypeScript"],
-    liveUrl: "#",
-    githubUrl: "#",
+    tags: ["WordPress", "Custom Theme", "WooCommerce"],
+    liveUrl: "https://amaralaa.vercel.app/",
+    featured: true,
   },
   {
-    title: "Example: Business Dashboard",
+    title: "Hanoush",
     description:
-      "Placeholder card. Replace with a real dashboard, SaaS app, or web project you've built.",
+      "Elegant brand website for Hanoush with a focus on storytelling, visual hierarchy, and a smooth browsing experience across all devices.",
     image: "",
-    tags: ["React", "Node.js", "REST API"],
-    liveUrl: "#",
+    tags: ["Next.js", "Framer Motion", "Tailwind CSS"],
+    liveUrl: "https://hanoush.vercel.app/",
+  },
+  {
+    title: "Noqta",
+    description:
+      "Noqta — a sharp, minimal web platform built to highlight services and attract clients, with a refined dark-mode aesthetic.",
+    image: "",
+    tags: ["React", "Tailwind CSS", "TypeScript"],
+    liveUrl: "https://noqta-rho.vercel.app/",
+  },
+  {
+    title: "Faris Group",
+    description:
+      "Corporate website for Faris Group — communicating credibility, services, and contact information in a professional and structured layout.",
+    image: "",
+    tags: ["WordPress", "ACF", "Custom Theme"],
+    liveUrl: "https://farisgroup.vercel.app/",
+  },
+  {
+    title: "Enter Ten",
+    description:
+      "Entertainment platform for Enter Ten — bold design, dynamic content sections, and a high-impact homepage built to captivate audiences.",
+    image: "",
+    tags: ["Next.js", "TypeScript", "REST API"],
+    liveUrl: "https://www.enter-ten.com/",
+    featured: true,
+  },
+  {
+    title: "Sparkle",
+    description:
+      "Saudi-based brand website for Sparkle — combining modern aesthetics with strong conversion-focused design and bilingual support.",
+    image: "",
+    tags: ["WordPress", "WooCommerce", "PHP"],
+    liveUrl: "https://sparkle.net.sa/",
   },
 ];
 
