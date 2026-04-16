@@ -87,7 +87,7 @@ export default function Footer() {
           className="text-center font-black uppercase leading-none text-white/[0.07] whitespace-nowrap"
           style={{ fontSize: "clamp(2rem, 13.5vw, 13.5vw)", letterSpacing: "-0.02em" }}
         >
-          OMAREMAD
+          OMAR EMAD
         </p>
       </div>
 

@@ -40,6 +40,7 @@ function AnimatedStatNum({ raw, display, inView }: { raw: number | null; display
 
 export default function Hero() {
   const [statsVisible, setStatsVisible] = useState(false);
+  const [showSpline, setShowSpline] = useState(false);
   const statsRef = useRef<HTMLDivElement>(null);
 
   const scrollToProjects = () => {
@@ -49,6 +50,19 @@ export default function Hero() {
   useEffect(() => {
     const timer = setTimeout(() => setStatsVisible(true), 900);
     return () => clearTimeout(timer);
+  }, []);
+
+  // Delay Spline load until browser is idle so text/content renders first
+  useEffect(() => {
+    if ("requestIdleCallback" in window) {
+      const id = (window as Window & typeof globalThis).requestIdleCallback(
+        () => setShowSpline(true),
+        { timeout: 2000 }
+      );
+      return () => (window as Window & typeof globalThis).cancelIdleCallback(id);
+    }
+    const t = setTimeout(() => setShowSpline(true), 600);
+    return () => clearTimeout(t);
   }, []);
 
   return (
@@ -186,10 +200,12 @@ export default function Hero() {
 
         {/* ── Right — 3D Spline scene ───────────────────────────── */}
         <div className="flex-1 relative min-h-[60vw] md:min-h-0">
-          <SplineScene
-            scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
-            className="w-full h-full absolute inset-0"
-          />
+          {showSpline && (
+            <SplineScene
+              scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
+              className="w-full h-full absolute inset-0"
+            />
+          )}
         </div>
       </div>
     </section>
