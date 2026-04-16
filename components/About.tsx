@@ -36,9 +36,9 @@ const toolsRow2 = [...baseRow2, ...baseRow2, ...baseRow2, ...baseRow2];
 
 function MarqueeRow({ items, reverse = false }: { items: string[]; reverse?: boolean }) {
   return (
-    <div className="overflow-hidden">
+    <div className="overflow-hidden w-full">
       <motion.div
-        animate={{ x: reverse ? ["0%", "25%"] : ["0%", "-25%"] }}
+        animate={{ x: reverse ? ["-25%", "0%"] : ["0%", "-25%"] }}
         transition={{ duration: 35, repeat: Infinity, ease: "linear" }}
         className="flex gap-2 w-max"
       >
@@ -60,7 +60,7 @@ export default function About() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="about" className="section-padding relative" ref={ref}>
+    <section id="about" className="section-padding relative overflow-x-hidden" ref={ref}>
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
 
       <div className="max-w-7xl mx-auto">
