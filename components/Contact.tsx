@@ -5,7 +5,7 @@ import { motion, useInView } from "framer-motion";
 import { Send, Mail, MessageCircle, CheckCircle, Loader2, Clock } from "lucide-react";
 
 type FormState = { name: string; email: string; message: string };
-type FormStatus = "idle" | "loading" | "success";
+type FormStatus = "idle" | "loading" | "success" | "error";
 
 export default function Contact() {
   const ref = useRef(null);
@@ -36,9 +36,18 @@ export default function Contact() {
     e.preventDefault();
     if (!validate()) return;
     setStatus("loading");
-    await new Promise((r) => setTimeout(r, 1500));
-    setStatus("success");
-    setForm({ name: "", email: "", message: "" });
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      if (!res.ok) throw new Error("Failed");
+      setStatus("success");
+      setForm({ name: "", email: "", message: "" });
+    } catch {
+      setStatus("error");
+    }
   };
 
   const inputClass = (field: keyof FormState) =>
@@ -150,6 +159,15 @@ export default function Contact() {
             className="lg:col-span-3"
           >
             <div className="p-8 rounded-2xl bg-neutral-950 border border-neutral-800">
+              {status === "error" && (
+                <motion.p
+                  initial={{ opacity: 0, y: -8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="mb-4 px-4 py-3 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm text-center"
+                >
+                  Something went wrong. Please try emailing me directly at oemad8637@gmail.com
+                </motion.p>
+              )}
               {status === "success" ? (
                 <motion.div
                   initial={{ opacity: 0, scale: 0.9 }}
@@ -195,7 +213,7 @@ export default function Contact() {
 
                   <button
                     type="submit"
-                    disabled={status === "loading"}
+                    disabled={status === "loading" || status === "success"}
                     className="w-full flex items-center justify-center gap-2.5 px-6 py-4 bg-white hover:bg-neutral-100 disabled:bg-neutral-800 disabled:text-neutral-500 text-black font-bold text-sm rounded-xl transition-all duration-300 hover:shadow-xl hover:shadow-white/10 hover:-translate-y-0.5 disabled:cursor-not-allowed"
                   >
                     {status === "loading" ? (
