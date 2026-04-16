@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Background } from "@/components/Background";
-import CustomCursor from "@/components/CustomCursor";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -78,7 +77,6 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://prod.spline.design" />
       </head>
       <body className="bg-black text-neutral-200 antialiased font-sans">
-        <CustomCursor />
         <Background />
         {children}
       </body>
