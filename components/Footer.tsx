@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { Code2, Heart, Github, Linkedin } from "lucide-react";
+import { SplineScene } from "@/components/ui/splite";
 
 const navLinks = [
   { label: "About", href: "/#about" },
@@ -9,25 +10,6 @@ const navLinks = [
   { label: "Projects", href: "/#projects" },
   { label: "Why Me", href: "/#why-me" },
   { label: "Contact", href: "/contact" },
-];
-
-const socials = [
-  {
-    icon: Github,
-    href: "https://github.com/omaremad212",
-    label: "GitHub",
-  },
-  {
-    icon: Linkedin,
-    href: "https://www.linkedin.com/in/omar-emad-4b361327b",
-    label: "LinkedIn",
-  },
-  {
-    // Instagram — inline SVG since lucide-react doesn't include it
-    icon: null,
-    href: "https://www.instagram.com/omaremad212/",
-    label: "Instagram",
-  },
 ];
 
 function InstagramIcon({ className }: { className?: string }) {
@@ -64,8 +46,30 @@ function WhatsAppIcon({ className }: { className?: string }) {
 
 export default function Footer() {
   return (
-    <footer className="relative border-t border-neutral-900/60">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <footer className="relative border-t border-neutral-900/60 overflow-hidden">
+      {/* Robot + Name hero area */}
+      <div className="relative flex flex-col items-center justify-end pt-12 pb-0">
+        {/* Robot Spline scene — small, centered */}
+        <div className="relative w-[260px] h-[260px] sm:w-[320px] sm:h-[320px]">
+          <SplineScene
+            scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
+            className="w-full h-full"
+          />
+        </div>
+
+        {/* Large name text sitting right below the robot */}
+        <div className="w-full overflow-hidden select-none -mt-4">
+          <p
+            className="text-center font-black uppercase tracking-tighter leading-none text-white/[0.07]"
+            style={{ fontSize: "clamp(4rem, 16vw, 14rem)" }}
+          >
+            Omar Emad
+          </p>
+        </div>
+      </div>
+
+      {/* Standard footer content */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         <div className="flex flex-col md:flex-row items-center justify-between gap-8">
           {/* Brand */}
           <div className="flex flex-col items-center md:items-start gap-3">
