@@ -2,8 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
-
 /* ─── Shadcn CSS variable tokens ─────────────────────────────────────────── */
 :root {
   --background: 0 0% 2%;
@@ -28,9 +26,13 @@ html {
 body {
   background-color: #030712;
   color: #e5e5e5;
-  font-family: 'Inter', system-ui, sans-serif;
+  font-family: var(--font-inter), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+@media (pointer: fine) {
+  * { cursor: none !important; }
 }
 
 /* ─── Custom scrollbar ────────────────────────────────────────────────────── */
