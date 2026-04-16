@@ -88,6 +88,26 @@ body {
   box-shadow: 0 0 30px rgba(255, 255, 255, 0.06);
 }
 
+/* ─── Mouse spotlight for cards ───────────────────────────────────────────── */
+.card-spotlight {
+  --mouse-x: 50%;
+  --mouse-y: 50%;
+}
+.card-spotlight::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(260px circle at var(--mouse-x) var(--mouse-y), rgba(255,255,255,0.055), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 0;
+}
+.card-spotlight:hover::after {
+  opacity: 1;
+}
+
 /* ─── Background blob animations (100% GPU — CSS transforms only) ─────────── */
 @keyframes bg-blob-1 {
   0%, 100% { transform: translate(0%,   0%)  scale(1)    rotate(0deg);  }

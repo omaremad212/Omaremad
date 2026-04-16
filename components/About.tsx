@@ -27,10 +27,35 @@ const highlights = [
   },
 ];
 
-const tools = [
-  "WordPress", "React", "Next.js", "OpenAI",
-  "WooCommerce", "Tailwind CSS", "PHP", "TypeScript", "Node.js", "Cursor AI",
+const toolsRow1 = [
+  "WordPress", "React", "Next.js", "Claude AI", "WooCommerce", "Tailwind CSS", "TypeScript",
+  "WordPress", "React", "Next.js", "Claude AI", "WooCommerce", "Tailwind CSS", "TypeScript",
 ];
+const toolsRow2 = [
+  "PHP", "Node.js", "Cursor AI", "MySQL", "REST APIs", "OpenAI", "Framer Motion",
+  "PHP", "Node.js", "Cursor AI", "MySQL", "REST APIs", "OpenAI", "Framer Motion",
+];
+
+function MarqueeRow({ items, reverse = false }: { items: string[]; reverse?: boolean }) {
+  return (
+    <div className="overflow-hidden">
+      <motion.div
+        animate={{ x: reverse ? ["0%", "50%"] : ["0%", "-50%"] }}
+        transition={{ duration: 22, repeat: Infinity, ease: "linear" }}
+        className="flex gap-2 w-max"
+      >
+        {items.map((tool, i) => (
+          <span
+            key={i}
+            className="px-3 py-1.5 text-xs font-semibold rounded-lg bg-neutral-900 text-neutral-400 border border-neutral-800 whitespace-nowrap hover:border-neutral-600 hover:text-neutral-200 transition-colors duration-200 cursor-default"
+          >
+            {tool}
+          </span>
+        ))}
+      </motion.div>
+    </div>
+  );
+}
 
 export default function About() {
   const ref = useRef(null);
@@ -62,7 +87,7 @@ export default function About() {
               transition={{ duration: 0.6, delay: 0.1 }}
               className="text-3xl sm:text-4xl md:text-5xl font-black leading-tight mb-6 bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400"
             >
-              Hi, I'm Omar.
+              Hi, I&apos;m Omar.
               <br />
               I make the web work
               <br />
@@ -75,7 +100,7 @@ export default function About() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="text-neutral-400 text-lg leading-relaxed mb-5"
             >
-              I'm a WordPress Developer and AI Fullstack Developer who builds
+              I&apos;m a WordPress Developer and AI Fullstack Developer who builds
               websites that convert visitors into clients. With a modern
               AI-powered workflow, I deliver projects that are{" "}
               <span className="text-neutral-200 font-semibold">
@@ -95,30 +120,20 @@ export default function About() {
               sharp business eye to every project.
             </motion.p>
 
+            {/* Marquee tool ticker */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={isInView ? { opacity: 1 } : {}}
-              transition={{ duration: 0.6, delay: 0.4 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
             >
               <p className="text-xs uppercase tracking-widest text-neutral-600 font-semibold mb-3">
-                Tools & Technologies
+                Tools &amp; Technologies
               </p>
-              <div className="flex flex-wrap gap-2">
-                {tools.map((tool) => (
-                  <span
-                    key={tool}
-                    className="px-3 py-1.5 text-xs font-semibold rounded-lg bg-neutral-900 text-neutral-400 border border-neutral-800 hover:border-neutral-600 hover:text-neutral-200 transition-colors duration-200"
-                  >
-                    {tool}
-                  </span>
-                ))}
+              <div className="flex flex-col gap-2">
+                <MarqueeRow items={toolsRow1} />
+                <MarqueeRow items={toolsRow2} reverse />
               </div>
             </motion.div>
-
-            {/*
-             * [PROJECTS_PLACEHOLDER]
-             * Add featured project highlights or mini thumbnails here.
-             */}
           </div>
 
           {/* Right — highlight cards */}
@@ -128,8 +143,8 @@ export default function About() {
                 key={item.title}
                 initial={{ opacity: 0, y: 30 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: 0.2 + i * 0.1 }}
-                className="group p-6 rounded-2xl bg-neutral-950 border border-neutral-800 hover:border-neutral-700 hover:bg-neutral-900 transition-all duration-300"
+                transition={{ duration: 0.5, delay: 0.2 + i * 0.1, type: "spring", stiffness: 100, damping: 18 }}
+                className="group p-6 rounded-2xl bg-neutral-950 border border-neutral-800 hover:border-neutral-700 hover:bg-neutral-900 hover:-translate-y-1 transition-all duration-300"
               >
                 <div className="w-11 h-11 rounded-xl bg-white/[0.05] border border-white/10 flex items-center justify-center mb-4 group-hover:bg-white/[0.08] transition-colors duration-300">
                   <item.icon className="w-5 h-5 text-neutral-300" />
