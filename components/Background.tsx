@@ -1,15 +1,11 @@
 "use client";
 
-// Gradient-noise background — pure CSS, zero JS, zero animation cost.
-// Technique: layered radial gradients (smooth blobs) + grain texture overlay.
-// The combination produces the "gradient noise" look from the reference image,
-// re-coloured to our black / grey palette.
-
+// Gradient-noise background — pure CSS + inline SVG, zero external requests.
 export function Background() {
   return (
     <div className="fixed inset-0 -z-10 pointer-events-none" aria-hidden>
 
-      {/* ── Layer 1: smooth grey gradient blobs on black ─────────── */}
+      {/* Layer 1: smooth grey gradient blobs */}
       <div
         style={{
           position: "absolute",
@@ -24,42 +20,26 @@ export function Background() {
         }}
       />
 
-      {/* ── Layer 2: dark vignette keeps edges/centre deep black ─── */}
+      {/* Layer 2: dark vignette */}
       <div
         style={{
           position: "absolute",
           inset: 0,
-          background: `
-            radial-gradient(ellipse 90% 80% at 50% 50%, transparent 15%, rgba(0,0,0,0.72) 100%)
-          `,
+          background: `radial-gradient(ellipse 90% 80% at 50% 50%, transparent 15%, rgba(0,0,0,0.72) 100%)`,
         }}
       />
 
-      {/* ── Layer 3: grain / noise texture — the "noise" in gradient-noise */}
-      {/* Using a tiled grain image at higher opacity gives the sandy texture */}
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          backgroundImage: `url("https://framerusercontent.com/images/g0QcWrxr87K0ufOxIUFBakwYA8.png")`,
-          backgroundSize: 180,
-          backgroundRepeat: "repeat",
-          opacity: 0.12,
-          mixBlendMode: "overlay",
-        }}
-      />
-
-      {/* ── Layer 4: second grain pass at lower opacity for depth ─── */}
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          backgroundImage: `url("https://framerusercontent.com/images/g0QcWrxr87K0ufOxIUFBakwYA8.png")`,
-          backgroundSize: 320,
-          backgroundRepeat: "repeat",
-          opacity: 0.06,
-        }}
-      />
+      {/* Layer 3: inline SVG grain — zero HTTP request */}
+      <svg
+        style={{ position: "absolute", inset: 0, width: "100%", height: "100%", opacity: 0.18, mixBlendMode: "overlay" }}
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <filter id="grain">
+          <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch" />
+          <feColorMatrix type="saturate" values="0" />
+        </filter>
+        <rect width="100%" height="100%" filter="url(#grain)" />
+      </svg>
     </div>
   );
 }

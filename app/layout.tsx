@@ -74,6 +74,8 @@ export default function RootLayout({
     <html lang="en" className={`scroll-smooth ${inter.variable}`}>
       <head>
         <link rel="icon" href="/favicon.ico" />
+        <link rel="preconnect" href="https://prod.spline.design" />
+        <link rel="dns-prefetch" href="https://prod.spline.design" />
       </head>
       <body className="bg-black text-neutral-200 antialiased font-sans">
         <CustomCursor />
