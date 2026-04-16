@@ -51,20 +51,22 @@ export default function Navbar() {
       }`}
     >
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 gap-4">
+        <div className="flex items-center h-16">
 
           {/* ── Logo (left) ─────────────────────────────────────── */}
-          <Link href="/" className="flex items-center gap-2 group flex-shrink-0">
-            <div className="w-8 h-8 rounded-lg bg-white/[0.08] border border-white/10 flex items-center justify-center group-hover:bg-white/15 transition-colors duration-200">
-              <Code2 className="w-4 h-4 text-white" />
-            </div>
-            <span className="font-bold text-lg text-white tracking-tight">
-              Omar<span className="text-neutral-500">.</span>dev
-            </span>
-          </Link>
+          <div className="flex-1 flex justify-start">
+            <Link href="/" className="flex items-center gap-2 group flex-shrink-0">
+              <div className="w-8 h-8 rounded-lg bg-white/[0.08] border border-white/10 flex items-center justify-center group-hover:bg-white/15 transition-colors duration-200">
+                <Code2 className="w-4 h-4 text-white" />
+              </div>
+              <span className="font-bold text-lg text-white tracking-tight">
+                Omar<span className="text-neutral-500">.</span>dev
+              </span>
+            </Link>
+          </div>
 
           {/* ── Nav links – glassmorphism pill (center) ──────────── */}
-          <nav className="hidden md:flex items-center bg-white/[0.06] backdrop-blur-md border border-white/[0.09] rounded-full px-1.5 py-1.5 gap-0.5">
+          <nav className="hidden md:flex items-center bg-white/[0.06] backdrop-blur-md border border-white/[0.09] rounded-full px-1.5 py-1.5 gap-0.5 flex-shrink-0">
             {navLinks.map((link) => (
               <a
                 key={link.href}
@@ -80,12 +82,14 @@ export default function Navbar() {
           </nav>
 
           {/* ── Hire Me (right) ──────────────────────────────────── */}
-          <Link
-            href="/contact"
-            className="hidden md:inline-flex flex-shrink-0 px-5 py-2 text-sm font-semibold bg-white hover:bg-neutral-100 text-black rounded-full transition-all duration-200 hover:shadow-lg hover:shadow-white/10 hover:-translate-y-0.5"
-          >
-            Hire Me
-          </Link>
+          <div className="flex-1 flex justify-end">
+            <Link
+              href="/contact"
+              className="hidden md:inline-flex flex-shrink-0 px-5 py-2 text-sm font-semibold bg-white hover:bg-neutral-100 text-black rounded-full transition-all duration-200 hover:shadow-lg hover:shadow-white/10 hover:-translate-y-0.5"
+            >
+              Hire Me
+            </Link>
+          </div>
 
           {/* ── Mobile hamburger ─────────────────────────────────── */}
           <button
