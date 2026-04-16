@@ -1,7 +1,7 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { motion, useInView, animate } from "framer-motion";
+import { useRef, useEffect, useState } from "react";
 import { Zap, Brain, ShieldCheck, HeartHandshake } from "lucide-react";
 
 const trustPoints = [
@@ -18,7 +18,7 @@ const trustPoints = [
     title: "AI-Powered",
     description:
       "I use the latest AI tools to write better code, faster — and then I review every line. Best of both worlds.",
-    stat: "GPT-4",
+    stat: "Claude",
     statLabel: "in my workflow",
   },
   {
@@ -38,6 +38,26 @@ const trustPoints = [
     statLabel: "revisions until right",
   },
 ];
+
+function AnimatedStat({ value, inView }: { value: string; inView: boolean }) {
+  const m = value.match(/^(\D*)(\d+)(\D*)$/);
+  const [display, setDisplay] = useState(() => (m ? `${m[1]}0${m[3]}` : value));
+
+  useEffect(() => {
+    if (!inView) return;
+    if (!m) { setDisplay(value); return; }
+    const num = parseInt(m[2]);
+    const ctrl = animate(0, num, {
+      duration: 1.6,
+      ease: [0.16, 1, 0.3, 1],
+      onUpdate: (v) => setDisplay(`${m[1]}${Math.round(v)}${m[3]}`),
+    });
+    return () => ctrl.stop();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [inView, value]);
+
+  return <>{display}</>;
+}
 
 export default function WhyMe() {
   const ref = useRef(null);
@@ -76,7 +96,7 @@ export default function WhyMe() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-neutral-500 text-lg max-w-2xl mx-auto"
           >
-            Here's what makes working with me different from hiring a generic agency or freelancer.
+            Here&apos;s what makes working with me different from hiring a generic agency or freelancer.
           </motion.p>
         </div>
 
@@ -87,15 +107,15 @@ export default function WhyMe() {
               key={point.title}
               initial={{ opacity: 0, y: 40 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.1 + i * 0.1 }}
-              className="group p-6 rounded-2xl bg-neutral-950 border border-neutral-800 hover:border-neutral-700 hover:-translate-y-1 hover:shadow-xl hover:shadow-black/30 transition-all duration-300 flex flex-col"
+              transition={{ duration: 0.5, delay: 0.1 + i * 0.1, type: "spring", stiffness: 100, damping: 20 }}
+              className="group p-6 rounded-2xl bg-neutral-950 border border-neutral-800 hover:border-neutral-600 hover:-translate-y-1.5 hover:shadow-xl hover:shadow-black/40 transition-all duration-300 flex flex-col card-spotlight relative overflow-hidden"
             >
-              <div className="w-11 h-11 rounded-xl bg-white/[0.04] border border-white/[0.08] flex items-center justify-center mb-4 group-hover:bg-white/[0.07] transition-colors duration-300">
+              <div className="w-11 h-11 rounded-xl bg-white/[0.04] border border-white/[0.08] flex items-center justify-center mb-4 group-hover:bg-white/[0.08] transition-colors duration-300">
                 <point.icon className="w-5 h-5 text-neutral-300" />
               </div>
               <div className="mb-3">
                 <span className="text-2xl font-black bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400">
-                  {point.stat}
+                  <AnimatedStat value={point.stat} inView={isInView} />
                 </span>
                 <span className="text-xs text-neutral-600 ml-2">{point.statLabel}</span>
               </div>
