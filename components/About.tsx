@@ -27,21 +27,19 @@ const highlights = [
   },
 ];
 
-const toolsRow1 = [
-  "WordPress", "React", "Next.js", "Claude AI", "WooCommerce", "Tailwind CSS", "TypeScript",
-  "WordPress", "React", "Next.js", "Claude AI", "WooCommerce", "Tailwind CSS", "TypeScript",
-];
-const toolsRow2 = [
-  "PHP", "Node.js", "Cursor AI", "MySQL", "REST APIs", "OpenAI", "Framer Motion",
-  "PHP", "Node.js", "Cursor AI", "MySQL", "REST APIs", "OpenAI", "Framer Motion",
-];
+const baseRow1 = ["WordPress", "React", "Next.js", "Claude AI", "WooCommerce", "Tailwind CSS", "TypeScript", "Node.js", "Cursor AI"];
+const baseRow2 = ["PHP", "MySQL", "REST APIs", "OpenAI", "Framer Motion", "GraphQL", "Docker", "Figma", "Next.js"];
+
+// 4 repetitions → animate 0% to -25% (one set) = seamless full-width loop
+const toolsRow1 = [...baseRow1, ...baseRow1, ...baseRow1, ...baseRow1];
+const toolsRow2 = [...baseRow2, ...baseRow2, ...baseRow2, ...baseRow2];
 
 function MarqueeRow({ items, reverse = false }: { items: string[]; reverse?: boolean }) {
   return (
     <div className="overflow-hidden">
       <motion.div
-        animate={{ x: reverse ? ["0%", "50%"] : ["0%", "-50%"] }}
-        transition={{ duration: 22, repeat: Infinity, ease: "linear" }}
+        animate={{ x: reverse ? ["0%", "25%"] : ["0%", "-25%"] }}
+        transition={{ duration: 35, repeat: Infinity, ease: "linear" }}
         className="flex gap-2 w-max"
       >
         {items.map((tool, i) => (
