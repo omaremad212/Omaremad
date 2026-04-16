@@ -84,10 +84,10 @@ export default function Footer() {
       {/* ── Big ghost name ── */}
       <div className="w-full overflow-hidden select-none">
         <p
-          className="text-center font-black uppercase tracking-tighter leading-none text-white/[0.07]"
-          style={{ fontSize: "clamp(5rem, 18vw, 16rem)" }}
+          className="text-center font-black uppercase leading-none text-white/[0.07] whitespace-nowrap"
+          style={{ fontSize: "clamp(2rem, 13.5vw, 13.5vw)", letterSpacing: "-0.02em" }}
         >
-          OMAR
+          OMAREMAD
         </p>
       </div>
 
