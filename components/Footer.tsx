@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { Code2, Heart, Github, Linkedin } from "lucide-react";
 import { SplineScene } from "@/components/ui/splite";
+import { useEffect, useRef, useState } from "react";
 
 const navLinks = [
   { label: "About", href: "/#about" },
@@ -45,30 +46,56 @@ function WhatsAppIcon({ className }: { className?: string }) {
 }
 
 export default function Footer() {
+  const triggerRef = useRef<HTMLDivElement>(null);
+  const [splineVisible, setSplineVisible] = useState(false);
+
+  // Only load the Spline scene when the footer is close to the viewport
+  useEffect(() => {
+    const el = triggerRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setSplineVisible(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "300px" } // start loading 300px before it enters view
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <footer className="relative border-t border-neutral-900/60 overflow-hidden">
-      {/* Robot + Name hero area */}
-      <div className="relative flex flex-col items-center justify-end pt-12 pb-0">
-        {/* Robot Spline scene — small, centered */}
-        <div className="relative w-[260px] h-[260px] sm:w-[320px] sm:h-[320px]">
-          <SplineScene
-            scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
-            className="w-full h-full"
-          />
+
+      {/* Trigger sentinel — invisible, sits at top of footer */}
+      <div ref={triggerRef} aria-hidden />
+
+      {/* ── Robot section ── */}
+      <div className="flex flex-col items-center pt-12 pb-0">
+        {/* Robot — fixed height so layout never shifts */}
+        <div className="w-[260px] h-[260px] sm:w-[320px] sm:h-[320px]">
+          {splineVisible && (
+            <SplineScene
+              scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
+              className="w-full h-full"
+            />
+          )}
         </div>
 
-        {/* Large name text sitting right below the robot */}
-        <div className="w-full overflow-hidden select-none -mt-4">
+        {/* Big ghost name — OMAR only */}
+        <div className="w-full overflow-hidden select-none -mt-6">
           <p
             className="text-center font-black uppercase tracking-tighter leading-none text-white/[0.07]"
-            style={{ fontSize: "clamp(4rem, 16vw, 14rem)" }}
+            style={{ fontSize: "clamp(5rem, 18vw, 16rem)" }}
           >
-            Omar Emad
+            OMAR
           </p>
         </div>
       </div>
 
-      {/* Standard footer content */}
+      {/* ── Standard footer content (always below robot + text) ── */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         <div className="flex flex-col md:flex-row items-center justify-between gap-8">
           {/* Brand */}
