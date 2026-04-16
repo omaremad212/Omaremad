@@ -213,7 +213,7 @@ export default function Contact() {
 
                   <button
                     type="submit"
-                    disabled={status === "loading" || status === "success"}
+                    disabled={status === "loading"}
                     className="w-full flex items-center justify-center gap-2.5 px-6 py-4 bg-white hover:bg-neutral-100 disabled:bg-neutral-800 disabled:text-neutral-500 text-black font-bold text-sm rounded-xl transition-all duration-300 hover:shadow-xl hover:shadow-white/10 hover:-translate-y-0.5 disabled:cursor-not-allowed"
                   >
                     {status === "loading" ? (
