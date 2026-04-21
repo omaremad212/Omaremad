@@ -3,7 +3,7 @@
 import { motion, animate } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { Zap } from "lucide-react";
-import { SplineScene } from "@/components/ui/splite";
+import { SplineScene } from "@/components/ui/spline";
 import { Spotlight } from "@/components/ui/spotlight";
 import Link from "next/link";
 
