@@ -63,17 +63,26 @@ export default function Navbar() {
           <div className="flex items-center justify-between h-16 gap-4">
 
             {/* ── Logo (left) ─────────────────────────────────────── */}
-            <Link href="/" className="flex items-center gap-2 group flex-shrink-0">
-              <div className="w-8 h-8 rounded-lg bg-white/[0.08] border border-white/10 flex items-center justify-center group-hover:bg-white/15 transition-colors duration-200">
-                <Code2 className="w-4 h-4 text-white" />
-              </div>
-              <span className="font-bold text-lg text-white tracking-tight">
-                Omar<span className="text-neutral-500">.</span>dev
-              </span>
-            </Link>
+            <div className="flex-1 flex justify-start">
+              <Link href="/" className="flex items-center gap-2 group flex-shrink-0">
+                <div className="w-8 h-8 rounded-lg bg-white/[0.08] border border-white/10 flex items-center justify-center group-hover:bg-white/15 transition-colors duration-200">
+                  <Code2 className="w-4 h-4 text-white" />
+                </div>
+                <span className="font-bold text-lg text-white tracking-tight">
+                  Omar<span className="text-neutral-500">.</span>dev
+                </span>
+              </Link>
+            </div>
 
-            {/* ── Nav links – glassmorphism pill (center) ──────────── */}
-            <nav className="hidden md:flex items-center bg-white/[0.06] backdrop-blur-md border border-white/[0.09] rounded-full px-1.5 py-1.5 gap-0.5">
+            {/* ── Nav links – Liquid Glass container (center) ──────────── */}
+            <nav 
+              className={`hidden md:flex items-center transition-all duration-500 ease-in-out border px-2 py-1.5 gap-1 ${
+                isScrolled 
+                  ? "bg-white/[0.08] backdrop-blur-2xl border-white/[0.12] shadow-[0_8px_32px_0_rgba(0,0,0,0.3)]" 
+                  : "bg-white/[0.03] backdrop-blur-md border-white/[0.08]"
+              }`}
+              style={{ borderRadius: '0px' }} // Sharp corners as requested
+            >
               {navLinks.map((link) => (
                 <a
                   key={link.href}
@@ -81,20 +90,23 @@ export default function Navbar() {
                   onClick={(e) => {
                     if (isHome) { e.preventDefault(); handleNavClick(link.href); }
                   }}
-                  className="px-4 py-1.5 text-sm font-medium text-neutral-400 hover:text-white rounded-full hover:bg-white/[0.08] transition-all duration-200 whitespace-nowrap"
+                  className="px-5 py-1.5 text-sm font-medium text-neutral-400 hover:text-white transition-all duration-300 whitespace-nowrap relative group"
                 >
                   {link.label}
+                  <span className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/40 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
                 </a>
               ))}
             </nav>
 
             {/* ── Hire Me (right, desktop) ─────────────────────────── */}
-            <Link
-              href="/contact"
-              className="hidden md:inline-flex flex-shrink-0 px-5 py-2 text-sm font-semibold bg-white hover:bg-neutral-100 text-black rounded-full transition-all duration-200 hover:shadow-lg hover:shadow-white/10 hover:-translate-y-0.5"
-            >
-              Hire Me
-            </Link>
+            <div className="flex-1 flex justify-end">
+              <Link
+                href="/contact"
+                className="hidden md:inline-flex flex-shrink-0 px-6 py-2.5 text-sm font-bold bg-white hover:bg-neutral-100 text-black rounded-full transition-all duration-300 hover:shadow-[0_0_20px_rgba(255,255,255,0.15)] hover:-translate-y-0.5"
+              >
+                Hire Me
+              </Link>
+            </div>
 
             {/* ── Mobile hamburger ─────────────────────────────────── */}
             <button
