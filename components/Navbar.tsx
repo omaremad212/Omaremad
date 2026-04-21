@@ -50,70 +50,63 @@ export default function Navbar() {
   return (
     <>
       <motion.header
-        initial={{ y: -80, opacity: 0 }}
+        initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled || mobileOpen
-            ? "bg-black/80 backdrop-blur-xl border-b border-white/[0.05]"
-            : "bg-transparent"
-        }`}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        className="fixed top-0 left-0 right-0 z-50 flex justify-center pt-6 px-4"
       >
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16 gap-4">
-
-            {/* ── Logo (left) ─────────────────────────────────────── */}
-            <div className="flex-1 flex justify-start">
-              <Link href="/" className="flex items-center gap-2 group flex-shrink-0">
-                <div className="w-8 h-8 rounded-lg bg-white/[0.08] border border-white/10 flex items-center justify-center group-hover:bg-white/15 transition-colors duration-200">
-                  <Code2 className="w-4 h-4 text-white" />
-                </div>
-                <span className="font-bold text-lg text-white tracking-tight">
-                  Omar<span className="text-neutral-500">.</span>dev
-                </span>
-              </Link>
+        <div 
+          className={`w-full max-w-6xl transition-all duration-700 ease-in-out border flex items-center justify-between h-16 px-6 relative overflow-hidden ${
+            isScrolled 
+              ? "bg-[#0a0908]/80 backdrop-blur-3xl border-white/[0.12] shadow-[0_20px_50px_rgba(0,0,0,0.5)]" 
+              : "bg-[#141210]/60 backdrop-blur-xl border-white/[0.08] shadow-[0_10px_30px_rgba(0,0,0,0.3)]"
+          }`}
+          style={{ borderRadius: '24px' }}
+        >
+          {/* Subtle Glossy Reflection Effect */}
+          <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+          
+          {/* ── Logo (left) ─────────────────────────────────────── */}
+          <Link href="/" className="flex items-center gap-2 group flex-shrink-0 z-10">
+            <div className="w-8 h-8 rounded-lg bg-white/[0.05] border border-white/10 flex items-center justify-center group-hover:bg-white/10 transition-all duration-300">
+              <Code2 className="w-4 h-4 text-white/80" />
             </div>
+            <span className="font-bold text-lg text-white/90 tracking-tight">
+              Omar<span className="text-neutral-500">.</span>dev
+            </span>
+          </Link>
 
-            {/* ── Nav links – Liquid Glass container (center) ──────────── */}
-            <nav 
-              className={`hidden md:flex items-center transition-all duration-500 ease-in-out border px-2 py-1.5 gap-1 ${
-                isScrolled 
-                  ? "bg-white/[0.08] backdrop-blur-2xl border-white/[0.12] shadow-[0_8px_32px_0_rgba(0,0,0,0.3)]" 
-                  : "bg-white/[0.03] backdrop-blur-md border-white/[0.08]"
-              }`}
-              style={{ borderRadius: '0px' }} // Sharp corners as requested
-            >
-              {navLinks.map((link) => (
-                <a
-                  key={link.href}
-                  href={isHome ? link.href : `/${link.href}`}
-                  onClick={(e) => {
-                    if (isHome) { e.preventDefault(); handleNavClick(link.href); }
-                  }}
-                  className="px-5 py-1.5 text-sm font-medium text-neutral-400 hover:text-white transition-all duration-300 whitespace-nowrap relative group"
-                >
-                  {link.label}
-                  <span className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/40 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
-                </a>
-              ))}
-            </nav>
-
-            {/* ── Hire Me (right, desktop) ─────────────────────────── */}
-            <div className="flex-1 flex justify-end">
-              <Link
-                href="/contact"
-                className="hidden md:inline-flex flex-shrink-0 px-6 py-2.5 text-sm font-bold bg-white hover:bg-neutral-100 text-black rounded-full transition-all duration-300 hover:shadow-[0_0_20px_rgba(255,255,255,0.15)] hover:-translate-y-0.5"
+          {/* ── Nav links – Integrated (center) ──────────── */}
+          <nav className="hidden md:flex items-center gap-1">
+            {navLinks.map((link) => (
+              <a
+                key={link.href}
+                href={isHome ? link.href : `/${link.href}`}
+                onClick={(e) => {
+                  if (isHome) { e.preventDefault(); handleNavClick(link.href); }
+                }}
+                className="px-5 py-2 text-[13px] font-medium text-neutral-400 hover:text-white transition-all duration-300 whitespace-nowrap relative group"
               >
-                Hire Me
-              </Link>
-            </div>
+                {link.label}
+                <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-white opacity-0 group-hover:opacity-100 transition-all duration-500" />
+              </a>
+            ))}
+          </nav>
 
-            {/* ── Mobile hamburger ─────────────────────────────────── */}
-            <button
-              onClick={() => setMobileOpen(!mobileOpen)}
-              className="md:hidden p-2 rounded-lg text-neutral-400 hover:text-white hover:bg-white/[0.07] transition-all flex-shrink-0"
-              aria-label="Toggle menu"
-            >
+          {/* ── Hire Me (right, desktop) ─────────────────────────── */}
+          <Link
+            href="/contact"
+            className="hidden md:inline-flex flex-shrink-0 px-6 py-2 text-[13px] font-bold bg-white hover:bg-neutral-100 text-black rounded-full transition-all duration-300 hover:shadow-[0_0_25px_rgba(255,255,255,0.2)] hover:-translate-y-0.5 z-10"
+          >
+            Hire Me
+          </Link>
+
+          {/* ── Mobile hamburger ─────────────────────────────────── */}
+          <button
+            onClick={() => setMobileOpen(!mobileOpen)}
+            className="md:hidden p-2 rounded-lg text-neutral-400 hover:text-white hover:bg-white/[0.07] transition-all flex-shrink-0 z-10"
+            aria-label="Toggle menu"
+          >
               <AnimatePresence mode="wait" initial={false}>
                 {mobileOpen ? (
                   <motion.span
