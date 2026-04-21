@@ -1,54 +1,63 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
-import { Brain, Rocket, Code, Users } from "lucide-react";
+import { Brain, Rocket, Code, Users, Cpu, Globe, Zap, Sparkles } from "lucide-react";
 
 const highlights = [
   {
     icon: Code,
     title: "WordPress Mastery",
-    desc: "Custom themes, plugins, WooCommerce — built the right way.",
+    desc: "Bespoke themes and architecture. Scalable, performant, and pixel-perfect.",
+    color: "from-blue-500/20 to-cyan-500/20",
   },
   {
     icon: Brain,
-    title: "AI-Powered Workflow",
-    desc: "I use AI to ship faster without cutting corners on quality.",
+    title: "AI Integrations",
+    desc: "Leveraging LLMs to automate complexity and build intelligent interfaces.",
+    color: "from-purple-500/20 to-pink-500/20",
   },
   {
     icon: Rocket,
-    title: "Rapid Delivery",
-    desc: "Most projects delivered in half the usual time.",
+    title: "Performance First",
+    desc: "Speed is a feature. I optimize every byte for conversion and SEO.",
+    color: "from-orange-500/20 to-red-500/20",
   },
   {
-    icon: Users,
-    title: "Client-First Thinking",
-    desc: "Your business goals drive every decision I make.",
+    icon: Sparkles,
+    title: "Premium Design",
+    desc: "Aesthetic precision combined with functional excellence.",
+    color: "from-emerald-500/20 to-teal-500/20",
   },
 ];
 
-const baseRow1 = ["WordPress", "React", "Next.js", "Claude AI", "WooCommerce", "Tailwind CSS", "TypeScript", "Node.js", "Cursor AI"];
-const baseRow2 = ["PHP", "MySQL", "REST APIs", "OpenAI", "Framer Motion", "GraphQL", "Docker", "Figma", "Next.js"];
+const baseRow1 = ["WordPress", "React", "Next.js", "Claude AI", "WooCommerce", "Tailwind CSS", "TypeScript", "Node.js", "Cursor AI", "Framer Motion"];
+const baseRow2 = ["PHP", "MySQL", "REST APIs", "OpenAI", "Python", "GraphQL", "Docker", "Figma", "Redux", "PostgreSQL"];
 
-// 4 repetitions → animate 0% to -25% (one set) = seamless full-width loop
-const toolsRow1 = [...baseRow1, ...baseRow1, ...baseRow1, ...baseRow1];
-const toolsRow2 = [...baseRow2, ...baseRow2, ...baseRow2, ...baseRow2];
+const toolsRow1 = [...baseRow1, ...baseRow1];
+const toolsRow2 = [...baseRow2, ...baseRow2];
+
+function ToolChip({ tool }: { tool: string }) {
+  return (
+    <div className="group relative px-5 py-2.5 rounded-full bg-neutral-900/40 backdrop-blur-md border border-white/5 hover:border-white/20 transition-all duration-500 cursor-default">
+      <div className="absolute inset-0 rounded-full bg-gradient-to-r from-white/0 via-white/5 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+      <span className="relative text-sm font-medium text-neutral-500 group-hover:text-neutral-200 transition-colors duration-300 whitespace-nowrap">
+        {tool}
+      </span>
+    </div>
+  );
+}
 
 function MarqueeRow({ items, reverse = false }: { items: string[]; reverse?: boolean }) {
   return (
-    <div className="overflow-hidden w-full">
+    <div className="overflow-hidden w-full mask-fade-edges">
       <motion.div
-        animate={{ x: reverse ? ["-25%", "0%"] : ["0%", "-25%"] }}
-        transition={{ duration: 35, repeat: Infinity, ease: "linear" }}
-        className="flex gap-2 w-max"
+        animate={{ x: reverse ? ["-50%", "0%"] : ["0%", "-50%"] }}
+        transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+        className="flex gap-4 w-max py-4"
       >
         {items.map((tool, i) => (
-          <span
-            key={i}
-            className="px-3 py-1.5 text-xs font-semibold rounded-lg bg-neutral-900 text-neutral-400 border border-neutral-800 whitespace-nowrap hover:border-neutral-600 hover:text-neutral-200 transition-colors duration-200 cursor-default"
-          >
-            {tool}
-          </span>
+          <ToolChip key={i} tool={tool} />
         ))}
       </motion.div>
     </div>
@@ -56,104 +65,149 @@ function MarqueeRow({ items, reverse = false }: { items: string[]; reverse?: boo
 }
 
 export default function About() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const containerRef = useRef(null);
+  const isInView = useInView(containerRef, { once: true, margin: "-100px" });
+  
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"],
+  });
+
+  const y1 = useTransform(scrollYProgress, [0, 1], [0, -100]);
+  const y2 = useTransform(scrollYProgress, [0, 1], [0, 100]);
 
   return (
-    <section id="about" className="section-padding relative overflow-x-hidden" ref={ref}>
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+    <section 
+      id="about" 
+      className="relative min-h-screen py-32 overflow-hidden bg-[#030303]" 
+      ref={containerRef}
+    >
+      {/* ── Atmospheric Atmosphere ─────────────────────────────────── */}
+      <div className="absolute inset-0 pointer-events-none">
+        <motion.div 
+          style={{ y: y1 }}
+          className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-purple-900/10 blur-[120px] rounded-full" 
+        />
+        <motion.div 
+          style={{ y: y2 }}
+          className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-blue-900/10 blur-[120px] rounded-full" 
+        />
+        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] brightness-100 contrast-150" />
+      </div>
 
-      <div className="max-w-7xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5 }}
-          className="flex items-center gap-3 mb-4"
-        >
-          <div className="h-px w-8 bg-neutral-600" />
-          <span className="text-neutral-500 text-xs font-semibold uppercase tracking-widest">
-            About Me
-          </span>
-        </motion.div>
-
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          {/* Left */}
-          <div>
-            <motion.h2
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-3xl sm:text-4xl md:text-5xl font-black leading-tight mb-6 bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400"
+      <div className="max-w-7xl mx-auto px-6 sm:px-12 relative z-10">
+        <div className="grid lg:grid-cols-[1.2fr_1fr] gap-20 items-start">
+          
+          {/* ── Left Content ─────────────────────────────────────────── */}
+          <div className="sticky top-32">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={isInView ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 0.8 }}
+              className="flex items-center gap-4 mb-8"
             >
-              Hi, I&apos;m Omar.
+              <div className="h-px w-12 bg-gradient-to-r from-neutral-800 to-transparent" />
+              <span className="text-neutral-500 text-xs font-bold uppercase tracking-[0.3em]">
+                The Architect
+              </span>
+            </motion.div>
+
+            <motion.h2
+              initial={{ opacity: 0, y: 40 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+              className="text-5xl md:text-7xl font-black leading-[1.1] mb-10 tracking-tight"
+            >
+              <span className="bg-clip-text text-transparent bg-gradient-to-b from-white to-neutral-500">
+                Bridging the gap 
+              </span>
               <br />
-              I make the web work
-              <br />
-              harder for you.
+              <span className="text-white">between </span>
+              <span className="italic font-serif text-neutral-400">code </span>
+              <span className="text-white">&amp; </span>
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-neutral-200 to-neutral-600">
+                capital.
+              </span>
             </motion.h2>
 
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-neutral-400 text-lg leading-relaxed mb-5"
-            >
-              I&apos;m a WordPress Developer and AI Fullstack Developer who builds
-              websites that convert visitors into clients. With a modern
-              AI-powered workflow, I deliver projects that are{" "}
-              <span className="text-neutral-200 font-semibold">
-                faster, smarter, and more effective
-              </span>{" "}
-              than what most agencies offer — at a fraction of the cost.
-            </motion.p>
-
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              className="text-neutral-400 text-lg leading-relaxed mb-8"
-            >
-              Whether you need a polished business site, a WooCommerce store, or
-              a custom AI-integrated web app, I bring deep technical skill and a
-              sharp business eye to every project.
-            </motion.p>
-
-            {/* Marquee tool ticker */}
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={isInView ? { opacity: 1 } : {}}
-              transition={{ duration: 0.8, delay: 0.4 }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              className="space-y-6 max-w-xl"
             >
-              <p className="text-xs uppercase tracking-widest text-neutral-600 font-semibold mb-3">
-                Tools &amp; Technologies
+              <p className="text-neutral-400 text-xl leading-relaxed font-light">
+                I am <span className="text-white font-medium">Omar Emad</span>, a digital engineer specializing 
+                in high-conversion WordPress ecosystems and AI-driven full-stack applications.
               </p>
-              <div className="flex flex-col gap-2">
+              <p className="text-neutral-500 text-lg leading-relaxed">
+                My workflow integrates <span className="text-neutral-300">Generative AI</span> at the architectural level, 
+                allowing me to build complex, enterprise-grade solutions with the agility of a startup. 
+                I don&apos;t just write code; I design systems that scale your bottom line.
+              </p>
+            </motion.div>
+
+            {/* Premium Tools Section */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.8, delay: 0.5 }}
+              className="mt-20"
+            >
+              <div className="flex items-center gap-4 mb-6">
+                <p className="text-[10px] uppercase tracking-[0.4em] text-neutral-600 font-bold">
+                  Core Stack
+                </p>
+                <div className="flex-1 h-px bg-neutral-900" />
+              </div>
+              <div className="flex flex-col gap-1 -mx-24 lg:-mx-0">
                 <MarqueeRow items={toolsRow1} />
                 <MarqueeRow items={toolsRow2} reverse />
               </div>
             </motion.div>
           </div>
 
-          {/* Right — highlight cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {/* ── Right Feature Cards ─────────────────────────────────── */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-6 pt-10 lg:pt-0">
             {highlights.map((item, i) => (
               <motion.div
                 key={item.title}
-                initial={{ opacity: 0, y: 30 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: 0.2 + i * 0.1, type: "spring", stiffness: 100, damping: 18 }}
-                className="group p-6 rounded-2xl bg-neutral-950 border border-neutral-800 hover:border-neutral-700 hover:bg-neutral-900 hover:-translate-y-1 transition-all duration-300"
+                initial={{ opacity: 0, y: 60, rotateX: 15 }}
+                animate={isInView ? { opacity: 1, y: 0, rotateX: 0 } : {}}
+                transition={{ 
+                  duration: 0.8, 
+                  delay: 0.4 + i * 0.15, 
+                  ease: [0.16, 1, 0.3, 1] 
+                }}
+                whileHover={{ y: -10, transition: { duration: 0.3 } }}
+                className="relative group p-8 rounded-[2rem] bg-neutral-950/40 border border-white/[0.03] hover:border-white/10 transition-all duration-500 backdrop-blur-sm overflow-hidden"
               >
-                <div className="w-11 h-11 rounded-xl bg-white/[0.05] border border-white/10 flex items-center justify-center mb-4 group-hover:bg-white/[0.08] transition-colors duration-300">
-                  <item.icon className="w-5 h-5 text-neutral-300" />
+                {/* Glossy inner glow */}
+                <div className={`absolute inset-0 bg-gradient-to-br ${item.color} opacity-0 group-hover:opacity-100 transition-opacity duration-700`} />
+                
+                <div className="relative z-10">
+                  <div className="w-14 h-14 rounded-2xl bg-white/[0.03] border border-white/10 flex items-center justify-center mb-8 group-hover:scale-110 group-hover:bg-white/10 transition-all duration-500 shadow-2xl">
+                    <item.icon className="w-6 h-6 text-white/70" />
+                  </div>
+                  <h3 className="text-white font-bold text-xl mb-3 tracking-tight">{item.title}</h3>
+                  <p className="text-neutral-500 text-sm leading-relaxed group-hover:text-neutral-400 transition-colors duration-300">
+                    {item.desc}
+                  </p>
                 </div>
-                <h3 className="text-neutral-100 font-bold text-base mb-2">{item.title}</h3>
-                <p className="text-neutral-500 text-sm leading-relaxed">{item.desc}</p>
+
+                {/* Corner accent */}
+                <div className="absolute top-0 right-0 p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                  <Sparkles className="w-4 h-4 text-white/20" />
+                </div>
               </motion.div>
             ))}
           </div>
+          
         </div>
       </div>
+
+      {/* ── Section Transition ─────────────────────────────────────── */}
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black to-transparent pointer-events-none" />
     </section>
   );
 }
