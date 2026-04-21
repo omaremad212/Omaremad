@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { SplineScene } from "@/components/ui/splite";
+import { SplineScene } from "@/components/ui/spline";
 import { useEffect, useRef, useState } from "react";
 
 
