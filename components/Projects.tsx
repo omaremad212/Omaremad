@@ -103,7 +103,7 @@ function ProjectSlide({
         y, 
         perspective: "1500px",
         zIndex: index + 10,
-        pointerEvents: useTransform(scrollYProgress, p => (p >= start && p <= end) ? "auto" : "none")
+        pointerEvents: useTransform(scrollYProgress, (p: number) => (p >= start && p <= end) ? "auto" : "none") as any
       }}
       className="absolute inset-0 flex items-center justify-center p-4 sm:p-10"
     >
