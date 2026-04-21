@@ -80,17 +80,17 @@ export default function About() {
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Left Side: Content */}
           <div className="flex flex-col gap-10">
-            <div className="space-y-6">
+            <div className="space-y-8">
               <motion.h2
                 initial={{ opacity: 0, y: 20 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, delay: 0.1 }}
-                className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight leading-[1.05] text-white"
+                className="text-4xl md:text-5xl lg:text-7xl font-black tracking-tighter leading-[0.95] text-white"
               >
-                Engineering the web <br />
-                <span className="text-neutral-500">to accelerate</span> <br />
-                <span className="bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400">
-                  your business.
+                Engineering <br />
+                <span className="text-neutral-500 font-medium">the web to</span> <br />
+                <span className="bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-500">
+                  accelerate you.
                 </span>
               </motion.h2>
 
@@ -98,18 +98,21 @@ export default function About() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="space-y-6 max-w-lg"
+                className="space-y-8 max-w-xl"
               >
-                <p className="text-neutral-200 text-xl leading-snug font-medium">
-                  I am Omar Emad — a digital engineer focused on bridging the gap between clean code and business objectives.
-                </p>
-                
-                <div className="space-y-4 pt-2">
-                  <p className="text-neutral-500 text-[17px] leading-relaxed">
-                    I specialize in building <span className="text-neutral-300">custom WordPress ecosystems</span> and modern full-stack applications that don&apos;t just look good, but perform at scale.
+                <div className="space-y-4">
+                  <p className="text-neutral-100 text-xl md:text-2xl leading-tight font-bold tracking-tight">
+                    Omar Emad — a digital architect bridging the gap between <span className="text-neutral-400">clean code</span> and <span className="text-neutral-400">business capital.</span>
                   </p>
-                  <p className="text-neutral-500 text-[17px] leading-relaxed">
-                    By integrating <span className="text-neutral-300 italic">Generative AI</span> into my architectural workflow, I deliver complex, high-precision solutions in timelines that traditional agencies can&apos;t match.
+                  
+                  <p className="text-neutral-500 text-lg leading-relaxed max-w-lg">
+                    Specializing in custom <span className="text-neutral-300 font-medium">WordPress ecosystems</span> and modern full-stack applications that perform at scale.
+                  </p>
+                </div>
+                
+                <div className="pt-4 border-l border-neutral-900 pl-6">
+                  <p className="text-neutral-500 text-base leading-relaxed">
+                    By integrating <span className="text-neutral-300 italic">Generative AI</span> at the architectural level, I deliver high-precision solutions in timelines that traditional agencies can&apos;t match.
                   </p>
                 </div>
               </motion.div>
