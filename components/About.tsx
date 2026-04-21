@@ -79,28 +79,29 @@ export default function About() {
 
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Left Side: Content */}
-          <div className="flex flex-col gap-6">
+          <div className="flex flex-col gap-8">
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-4xl md:text-5xl font-black leading-tight bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400"
+              className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight leading-[1.1] text-white"
             >
-              Building digital experiences
-              <br />
-              that drive real value.
+              Engineering the web <br />
+              <span className="bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400">
+                to work for your business.
+              </span>
             </motion.h2>
 
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="space-y-4"
+              className="space-y-6 max-w-xl"
             >
               <p className="text-neutral-400 text-lg leading-relaxed">
-                I am <span className="text-white font-medium">Omar Emad</span>, a developer who bridges the gap between clean code and business objectives. I specialize in building custom WordPress ecosystems and modern full-stack applications.
+                I am <span className="text-white font-medium">Omar Emad</span>, a developer who bridges the gap between <span className="text-neutral-200">clean code</span> and <span className="text-neutral-200">business objectives</span>. I specialize in building custom WordPress ecosystems and modern full-stack applications.
               </p>
-              <p className="text-neutral-500 text-base leading-relaxed">
+              <p className="text-neutral-500 text-base leading-relaxed border-l border-neutral-800 pl-6">
                 By integrating AI into my development workflow, I deliver complex solutions with high technical precision in significantly shorter timelines. No bloat, just performance-focused results.
               </p>
             </motion.div>
