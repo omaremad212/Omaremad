@@ -128,14 +128,14 @@ export default function ContactPage() {
           </div>
 
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-black bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400 leading-[1.1] mb-5">
-            Let's Build Something
+            Let&apos;s Build Something
             <br />
             Great Together
           </h1>
 
           <p className="text-neutral-400 text-lg max-w-xl mx-auto">
-            Have a project in mind? I'd love to hear about it. Drop me a message
-            and I'll get back to you within{" "}
+            Have a project in mind? I&apos;d love to hear about it. Drop me a message
+            and I&apos;ll get back to you within{" "}
             <span className="text-neutral-200 font-semibold">24 hours</span>.
           </p>
         </motion.div>
@@ -241,7 +241,7 @@ export default function ContactPage() {
                   </div>
                   <h2 className="text-neutral-100 font-black text-2xl">Message Sent!</h2>
                   <p className="text-neutral-500 max-w-sm text-lg leading-relaxed">
-                    Thanks for reaching out. I'll review your message and reply within 24 hours.
+                    Thanks for reaching out. I&apos;ll review your message and reply within 24 hours.
                   </p>
                   <button
                     onClick={() => setStatus("idle")}
@@ -254,7 +254,7 @@ export default function ContactPage() {
                 <form onSubmit={handleSubmit} className="flex flex-col gap-5">
                   <div>
                     <h2 className="text-neutral-100 font-bold text-xl mb-1">Send a Message</h2>
-                    <p className="text-neutral-600 text-sm">Fill in the form and I'll be in touch shortly.</p>
+                    <p className="text-neutral-600 text-sm">Fill in the form and I&apos;ll be in touch shortly.</p>
                   </div>
 
                   <div className="grid sm:grid-cols-2 gap-5">

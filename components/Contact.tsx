@@ -89,7 +89,7 @@ export default function Contact() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-neutral-500 text-lg max-w-xl mx-auto"
           >
-            Drop me a message and I'll get back to you within 24 hours.
+            Drop me a message and I&apos;ll get back to you within 24 hours.
           </motion.p>
         </div>
 
@@ -179,7 +179,7 @@ export default function Contact() {
                   </div>
                   <h3 className="text-neutral-100 font-bold text-xl">Message Sent!</h3>
                   <p className="text-neutral-500 max-w-sm">
-                    Thanks for reaching out. I'll get back to you within 24 hours.
+                    Thanks for reaching out. I&apos;ll get back to you within 24 hours.
                   </p>
                   <button onClick={() => setStatus("idle")} className="mt-2 text-sm text-neutral-400 hover:text-neutral-200 font-medium transition-colors">
                     Send another message
